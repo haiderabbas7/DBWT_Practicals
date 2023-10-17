@@ -1,0 +1,205 @@
+<!--
+- Praktikum DBWT. Autoren:
+- Yannik, Sinthern, 3570151
+- Haider, Abbas, 3567272
+-->
+<!--x-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CSS Übung</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            font-family: sans-serif;
+            font-size: 18px;
+            font-weight: 500;
+        }
+
+        h1 {
+            font-size: 35px;
+            font-weight: bold;
+        }
+
+        a {
+            color: darkorange;
+            /*damit wird die unterstreichung entfernt*/
+            text-decoration: none;
+            font-weight: 900;
+        }
+
+        /*gesamte seite begrenzen damit nicht über ganze seite erstreckt*/
+        body {
+            /*overflow:hidden*/
+            width: 980px;
+            height: 940px;
+        }
+
+        /*
+        main {
+            height: 94%;
+            max-height: 94%;
+            width: 100%;
+        }*/
+
+        .elektro {
+            display: flex;
+            flex-direction: column;
+            /*width: 100%;*/
+        }
+
+        /*alle Paragraphen p in class Elektro*/
+        .elektro p {
+            padding-left: 7px;
+            padding-bottom: 28px; /*1.5rem = rem ungf 18.6*/
+        }
+
+        #elektro {
+            padding: 7px 0 19px 7px;
+        }
+
+        #etabelle {
+            align-self: center;
+            border: 1px solid orange;
+            width: 80%;
+            /*border-collapse: separate;*/
+        }
+
+        #etabelle thead {
+            /*farbe nicht gefunden, daher mit color picker in Paint gemacht und hex wert angegeben*/
+            background-color: #faebd7;
+        }
+
+        th {
+            font-weight: 900;
+        }
+
+         .zweiterEintrag{ /*#etabelle tbody tr:nth-child(2)*/
+            background-color: #faebd7;
+        }
+
+        td {
+            padding: 1rem 0.3rem 1rem 0;
+        }
+
+        tr {
+            font-weight: 700;
+        }
+
+        ol {
+            padding-left: 33px;
+        }
+
+        /*alle listeneinträge im main*/
+        main li {
+            padding: 9px;
+            /*dadurch stehen zahlen vor den einzelnen listenpunkten*/
+            list-style-type: decimal;
+        }
+
+        /*der text ganz unten, mit text-align center wird in mitte zentriert*/
+        .center{
+            text-align: center;
+            padding-top: 20px;
+        }
+
+        /*Footer ↓*/
+        footer {
+            /*display: flex;
+            height: 6%;
+            max-height: 6%;
+            justify-content: flex-end;*/
+            padding-top: 18px;
+            padding-left: 525px;
+            /*die linie darüber, wird durch das body am anfang begrenzt*/
+            border-top: 2px solid orange;
+        }
+
+        ul {
+            display: flex;
+            /*justify-content: center;
+            align-items: center;*/
+            list-style-type: none;
+        }
+
+        /*alle listenelemente im footer bis auf das letzte bekommen eine versetzte border*/
+        .border{ /*footer ul :not(li:last-child)*/
+            border-right: 2px solid orange;
+        }
+
+        footer li {
+            font-size: 18px;
+            padding: 0 18px;
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <div class="elektro zeile">
+            <h1 id="elektro">Wofür steht das E in E-Mensa?</h1>
+            <!--href auf eine ID macht, dass man direkt zu dem element mit der dazugehörigen ID scrolled-->
+            <p>Am besten zeigt man das in einer <a id="link" href="#etabelle">Tabelle</a>.</p>
+            <table id="etabelle">
+                <!--thead: tabellen header-->
+                <thead>
+                    <tr>
+                        <th>Bedeutung</th>
+                        <th>Philosophie</th>
+                        <th>Beispiele</th>
+                    </tr>
+                </thead>
+                <!--thead: tabellen körper-->
+                <tbody>
+                    <tr>
+                        <td>Elektro</td>
+                        <td>Alles geht elektronisch</td>
+                        <td>
+                            <ol>
+                                <li class="pflicht">Bestellung digital</li>
+                                <li class="pflicht">Bezahlen digital</li>
+                                <li>Essen digital</li>
+                                <li>Spülen digital</li>
+                            </ol>
+                        </td>
+                    </tr>
+                    <tr class="zweiterEintrag">
+                        <td>Extravagant</td>
+                        <td>Es gibt auch Ausgefallenes</td>
+                        <td><p>Wir sind die einzige Mensa weit und breit mit </p>
+                            <ol>
+                                <li class="pflicht">Vanillesauerkraut</li>
+                                <li class="pflicht">Bohnensenfbrot</li>
+                                <li>Habaneroeiscreme</li>
+                                <li>Bananengulasch</li>
+                            </ol>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Effizient</td>
+                        <td>Schnell, lecker und qualitativ</td>
+                        <td>
+                            <ol>
+                                <li class="pflicht">Frisch für Sie zubereitet, wann Sie es wollen</li>
+                                <li class="pflicht">Die Zutaten sind nachverfolgbar und immer tiefgekühlt</li>
+                                <li>Wir haben auch Samstags geöffnet. Sie sehen, wie effizient wir sind.</li>
+                            </ol>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <p class="center">Da geht natürlich noch viel mehr, siehe nur <abbr title="Extra">E</abbr>.<br>Die Tabelle ist
+                aber schon ganz schön imposant so oder?</p>
+        </div>
+    </main>
+    <footer>
+        <ul>
+            <li class="border">(c) DBWT</li>
+            <li class="border">Hilfe</li>
+            <li class="border">Datenschutz</li>
+            <li>Impressum</li>
+        </ul>
+    </footer>
+</body>
+</html>
