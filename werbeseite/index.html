@@ -4,7 +4,15 @@
     <meta charset="UTF-8">
     <title>Ihre E-Mensa</title>
     <style>
-        *{}
+
+        *{
+            /*default-werte für margin und padding ist immer 0, muss daher immer selber gesetzt werden*/
+            margin: 0;
+            padding: 0;
+            /*MACHT, DASS WIDTH UND HEIGHT DIE GRÖßE EINES ELEMENTES FESTSTELLEN IDFK */
+            box-sizing: border-box;
+            font-family: sans-serif;
+        }
         body{
             margin-left: 75px;
             margin-right: 75px;
@@ -34,6 +42,7 @@
         }
         nav{
             margin-left: 10px;
+            padding-top: 10px;
             border: darkgray 3px solid;
             width: 1000px;
             height: 50px;
@@ -61,10 +70,18 @@
             width: 500px;
             height: 220px;
         }
+        table, tr, th, td{
+            border-collapse: collapse;
+            width: fit-content;
+            border: 1px solid black;
+            text-align: center;
+        }
 
 
 
-
+        #abschied{
+            text-align: center;
+        }
         footer{
             border-top: #D9D9D9 3px solid;
             /*margin-left: 10px;
@@ -103,7 +120,57 @@
     <main>
         <img src="georghoever.jpeg" alt="Banner">
         <section id="ankündigung">
-
+            <h1>Bald gibt es Essen auch online ;)</h1>
+                <article>
+                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Maiores veritatis fugit ab magnam nesciunt autem necessitatibus, quia quo cupiditate, ad vel minus nam odit ex! Eum quidem commodi id autem!
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis, sed. Cupiditate blanditiis minus aperiam corrupti, veniam cumque adipisci quo esse exercitationem aspernatur praesentium fugiat commodi iste, aut nemo voluptas ullam.
+                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ipsum quam distinctio pariatur soluta fugiat quae, nobis nesciunt, modi labore asperiores maiores minus iusto totam, cumque enim quibusdam accusantium eaque ducimus?
+                    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ullam aperiam vel debitis ad expedita aliquam sit vero soluta in obcaecati quidem suscipit, quod doloribus eligendi! Dolores assumenda reprehenderit unde incidunt.
+                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Debitis tempora eligendi aliquam architecto sunt sed, ratione quos doloremque deserunt omnis accusamus quisquam, corrupti ex dicta? Neque nam maiores esse explicabo!
+                </article>
+        </section>
+        <section id="speisen">
+            <h1>Köstlichkeiten, die Sie erwarten</h1>
+            <table>
+                <tr>
+                    <td></td>
+                    <td>Preis intern</td>
+                    <td>Preis extern</td>
+                </tr>
+                <tr>
+                    <td>Rindfleisch mit Bambus, Kaiserschoten und rotem Paprika, dazu Mie Nudeln</td>
+                    <td>3,50</td>
+                    <td>6,20</td>
+                </tr>
+                <tr>
+                    <td>Spinatrisotto mit kleinen Samosateigecken dazu gemischter Salat</td>
+                    <td>2,90</td>
+                    <td>3,50</td>
+                </tr>
+                <tr>
+                    <td>...</td>
+                    <td>...</td>
+                    <td>...</td>
+                </tr>
+            </table>
+        </section>
+        <section id="zahlen">
+            <h1>E-Mensa in Zahlen</h1>
+            <p>X Besuche, Y Anmeldungen zum Newsletter, Z Speisen</p>
+        </section>
+        <section id="kontakt">
+            <h1>Interesse geweckt? Wir informieren Sie!</h1>
+        </section>
+        <section id="wichtigFürUns">
+            <h1>Das ist uns wichtig</h1>
+            <ul>
+                <li>Beste frische saisonale Zutaten</li>
+                <li>Ausgewoegene abwechslungsreiche Gerichte</li>
+                <li>Sauberkeit</li>
+            </ul>
+        </section>
+        <section id="abschied">
+            <h1>Wir freuen uns auf Ihren Besuch!</h1>
         </section>
     </main>
     <footer>
