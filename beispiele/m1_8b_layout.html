@@ -11,14 +11,14 @@
     <style>
         #container-horizontal {
             display: grid;
-            grid-template-columns: auto max-content auto;
+            grid-template-columns: auto auto auto;
             gap: 10px;
         }
         #container-horizontal > div {
             background-color: mediumturquoise;
         }
         .centered-div {
-            place-items: center;
+            text-align: center;
         }
 
         #container-vertical {
@@ -31,7 +31,7 @@
 
         #container-centered {
             display: grid;
-            justify-content: center;
+            text-align: center; /* was macht justify-content: center? damit hat es nicht geklappt */
         }
         #container-centered > div {
             background-color: mediumturquoise;
@@ -39,15 +39,15 @@
     </style>
 </head>
 <body>
-    <div id="container-horizontal">
-        <div>Links</div>
-        <div class="centered-div">Mitte</div>
-        <div>Rechts</div>
-    </div><br><br>
     <div id="container-vertical">
         <div>Oben</div>
         <div>Mitte</div>
         <div>Unten</div>
+    </div><br><br>
+    <div id="container-horizontal">
+        <div>Links</div>
+        <div class="centered-div">Mitte</div>
+        <div>Rechts</div>
     </div><br><br>
     <div id="container-centered">
         <div>Zentriert</div>

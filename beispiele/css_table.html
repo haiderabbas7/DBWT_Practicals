@@ -1,9 +1,69 @@
 <!DOCTYPE html>
-<html lang="en">
+<!--
+- Praktikum DBWT. Autoren:
+- Yannik, Sinthern, 3570151
+- Haider, Abbas, 3567272
+-->
+<html lang="de">
 <head>
     <meta charset="UTF-8">
     <title>CSS Übung</title>
     <style>
+        * { /*bezieht sich auf alles*/
+            font-family: sans-serif;
+            font-size: 16px;
+        }
+        h1 {
+            font-size: 35px;
+            font-weight: bold;
+        }
+        a { /*bezieht sich auf das "Tabelle"*/
+            color: darkorange;
+            text-decoration: none;/*damit wird die unterstreichung entfernt*/
+            font-weight: 900;
+        }
+        body {
+            width: 770px;
+        }
+        #etabelle thead { /*bezieht sich auf oberste Zeile in der Tabelle*/
+            background-color: #faebd7;/*farbe nicht gefunden, daher mit color picker in Paint gemacht und hex wert angegeben*/
+        }
+        th { /*bezieht sich auf Elemente der obersten Zeile in der Tabelle*/
+            font-weight: bold;
+        }
+        #etabelle { /*setzt orangene umrandung der ganzen Tabelle*/
+            margin: auto 75px;
+            border: 1px solid darkorange;
+        }
+        .zweiterEintrag { /*zweiten tabelleneintrag einfärben*/
+            background-color: #faebd7;/*farbe nicht gefunden, daher mit color picker in Paint gemacht und hex wert angegeben*/
+        }
+        main li { /*alle listeneinträge im main*/
+            padding: 8px;
+            list-style-type: decimal; /*dadurch stehen zahlen vor den einzelnen listenpunkten*/
+        }
+
+        .center { /*der text ganz unten wird mit text-align center in mitte zentriert*/
+            text-align: center;
+            text-decoration: none;/*damit wird die unterstreichung entfernt*/
+        }
+
+        footer { /*lange horizontale linie ganz unten*/
+            border-top: 1px solid orange;
+            width: 760px;
+        }
+
+        .border { /*die border rechts von den wörtern ganz unten*/
+            border-right: 1px solid orange;
+        }
+        ul { /*anordnung liste ganz unten*/
+            display: flex;
+            list-style-type: none; /*um punkte wegzukriegen*/
+            margin-left: 335px;
+        }
+        footer li { /*liste ganz unten: höhe der balken und abstand zwischen den elementen*/
+            padding: 0 14px;
+        }
 
     </style>
 </head>
@@ -13,6 +73,7 @@
         <h1 id="elektro">Wofür steht das E in E-Mensa?</h1>
         <p>Am besten zeigt man das in einer <a href="#etabelle">Tabelle</a>.</p>
         <table id="etabelle">
+            <!--thead: #etabelle thead-->
             <thead>
             <tr>
                 <th>Bedeutung</th>
@@ -20,6 +81,7 @@
                 <th>Beispiele</th>
             </tr>
             </thead>
+            <!--thead: tabellen körper-->
             <tbody>
             <tr>
                 <td>Elektro</td>
@@ -33,7 +95,7 @@
                     </ol>
                 </td>
             </tr>
-            <tr>
+            <tr class="zweiterEintrag">
                 <td>Extravagant</td>
                 <td>Es gibt auch Ausgefallenes</td>
                 <td><p>Wir sind die einzige Mensa weit und breit mit </p>
@@ -64,9 +126,9 @@
 </main>
 <footer>
     <ul>
-        <li>(c) DBWT</li>
-        <li>Hilfe</li>
-        <li>Datenschutz</li>
+        <li class="border">(c) DBWT</li>
+        <li class="border">Hilfe</li>
+        <li class="border">Datenschutz</li>
         <li>Impressum</li>
     </ul>
 </footer>
