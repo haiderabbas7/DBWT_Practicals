@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>Ihre E-Mensa</title>
+    <style>
+        *{}
+        body{
+            margin-left: 75px;
+            margin-right: 75px;
+            margin-top: 10px;
+            border: darkgray 3px solid;
+            width: auto;
+            height: fit-content;
+        }
+        a{
+            color: #6BD2CE;
+        }
+
+        header{
+            display: flex;
+            flex-direction: row;
+            border-bottom: #D9D9D9 3px solid;
+            margin-top: 50px;
+            padding-bottom: 10px;
+            /*margin-left: 10px;
+            margin-right: 10px;*/
+        }
+        header > img{
+            width: 260px;
+            height: 50px;
+            border: darkgray 3px solid;
+            margin-left: 10px;
+        }
+        nav{
+            margin-left: 10px;
+            border: darkgray 3px solid;
+            width: 1000px;
+            height: 50px;
+        }
+        nav ul {
+            display: flex;
+            flex-direction: row;
+            list-style-type: none;
+        }
+        /*ergibt mehr sinn, wenn die einzelnen links sich mit zooms verschieben anstatt fest zu sein*/
+        nav ul li{
+            font-size: 20px;
+            margin: 0 auto;
+
+        }
+
+
+        main{
+            width: auto;
+            margin-left: 75px;
+            margin-right: 75px;
+            margin-top: 10px;
+        }
+        main > img{
+            width: 500px;
+            height: 220px;
+        }
+
+
+
+
+        footer{
+            border-top: #D9D9D9 3px solid;
+            /*margin-left: 10px;
+            margin-right: 10px;*/
+        }
+        footer ul{
+            display: flex;
+            flex-direction: row;
+            list-style-type: none;
+            width: fit-content;
+            height: 40px;
+            margin-left: auto;
+            margin-right: auto;
+
+        }
+        footer ul li:not(li:last-child){
+            border-right: lightgray 2px solid;
+            margin-right: 10px;
+            padding-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="georghoever.jpeg" alt="E-Mensa Logo">
+        <nav>
+            <ul>
+                <li><a href="#ankündigung">Ankündigung</a></li>
+                <li><a href="#speisen">Speisen</a></li>
+                <li><a href="#zahlen">Zahlen</a></li>
+                <li><a href="#kontakt">Kontakt</a></li>
+                <li><a href="#wichtigFürUns">Wichtig für uns</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <img src="georghoever.jpeg" alt="Banner">
+        <section id="ankündigung">
+
+        </section>
+    </main>
+    <footer>
+        <ul>
+            <li><p> (c) E-Mensa GmbH</p></li>
+            <li><p> Haider Abbas und Yannik Sinthern</p></li>
+            <li><a href="#impressum">Impressum</a></li>
+        </ul>
+    </footer>
+</body>
+</html>
