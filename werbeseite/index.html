@@ -24,6 +24,10 @@
         a{
             color: #6BD2CE;
         }
+        h1{
+            font-size: 32px;
+            font-weight: 7000;
+        }
 
         header{
             display: flex;
@@ -31,8 +35,6 @@
             border-bottom: #D9D9D9 3px solid;
             margin-top: 50px;
             padding-bottom: 10px;
-            /*margin-left: 10px;
-            margin-right: 10px;*/
         }
         header > img{
             width: 260px;
@@ -56,51 +58,66 @@
         nav ul li{
             font-size: 20px;
             margin: 0 auto;
-
         }
+
+
+
 
 
         main{
-            width: auto;
-            margin-left: 75px;
-            margin-right: 75px;
+            width: 1000px;
+            height: fit-content;
+            margin-left: 280px;
             margin-top: 10px;
         }
         main > img{
-            width: 500px;
+            width: inherit;
             height: 220px;
+            border: darkgray 3px solid;
+            margin-bottom: 40px;
+        }
+
+        #ankündigung article{
+                border: darkgray 2px solid;
+                margin: 15px 0;
+        }
+        #speisen{
+            margin: 40px 0;
         }
         table, tr, th, td{
+            width: 1000px;
+            font-size: 20px;
             border-collapse: collapse;
-            width: fit-content;
             border: 1px solid black;
             text-align: center;
         }
-
-
-
         #abschied{
             text-align: center;
         }
+
+
+
+
         footer{
             border-top: #D9D9D9 3px solid;
-            /*margin-left: 10px;
-            margin-right: 10px;*/
         }
         footer ul{
             display: flex;
             flex-direction: row;
             list-style-type: none;
             width: fit-content;
-            height: 40px;
-            margin-left: auto;
-            margin-right: auto;
-
+            /*oben/unten: 10px und links/rechts: auto*/
+            margin: 10px auto;
         }
-        footer ul li:not(li:last-child){
-            border-right: lightgray 2px solid;
+        footer ul li{
             margin-right: 10px;
             padding-right: 10px;
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+        /*alle Listeneinträge bis auf das letzte haben ne border rechts*/
+        footer ul li:not(li:last-child){
+            border-right: lightgray 2px solid;
         }
     </style>
 </head>
