@@ -4,123 +4,114 @@
 - Yannik, Sinthern, 3570151
 - Haider, Abbas, 3567272
 -->
-<html lang="de">
+<html lang="">
 <head>
     <meta charset="UTF-8">
     <title>Ihre E-Mensa</title>
     <style>
-
-        *{
-            /*default-werte für margin und padding ist immer 0, muss daher immer selber gesetzt werden*/
-            margin: 0;
+        * { /*wird erstmal übergeordnet auf alles angewendet*/
+            margin: 0; /*default-werte für margin und padding ist immer 0, muss daher immer selber gesetzt werden*/
             padding: 0;
-            /*MACHT, DASS WIDTH UND HEIGHT DIE GRÖßE EINES ELEMENTES FESTSTELLEN*/
-            box-sizing: border-box;
+            box-sizing: border-box; /*padding und border werden bei elementen nach innen berechnet*/
             font-family: sans-serif;
         }
-        body{
-            margin-left: 75px;
-            margin-right: 75px;
-            margin-top: 10px;
-            border: darkgray 3px solid;
-            width: auto;
-            height: fit-content;
+        body {
+            margin-left: 75px; /*abstand äußerste box bis ende links der website*/
+            margin-right: 75px; /*abstand äußerste box bis ende rechts der website*/
+            margin-top: 10px; /*abstand äußerste box bis ende der website nach oben hin*/
+            border: darkgray 3px solid; /*aussehen äußerster border*/
+            width: auto; /*breite des bodys, auto berechnet sich durch rest aus margin-left/right*/
+            height: fit-content; /*height nutzt den verfügbaren platz, aber nicht mehr als max-content*/
         }
-        a{
+        a { /*steuert navzeile an an und verändert schrift*/
+            font-size: 18px;
             color: #6BD2CE;
         }
-        h1{
+        h1 { /*steuert alle h1 überschriften an*/
             font-size: 32px;
-            font-weight: 7000;
+            font-weight: bold;
         }
-
-        header{
-            display: flex;
-            flex-direction: row;
-            border-bottom: #D9D9D9 3px solid;
-            margin-top: 50px;
-            padding-bottom: 10px;
+        header { /*steuert menüzeile und bild links daneben an*/
+            display: flex; /*positieren elemente in zeilen oder spalten*/
+            flex-direction: row; /*hier in zeile positionieren*/
+            border-bottom: #D9D9D9 3px solid; /*border nach unten*/
+            margin-top: 50px; /*abstand bis zur oberen border*/
+            padding-bottom: 10px; /*abstand bis zur unteren border*/
         }
-        header > img{
-            width: 260px;
+        header > img { /*steuert bild oben links im header an*/
+            width: 200px;
             height: 50px;
             border: darkgray 3px solid;
             margin-left: 10px;
+
         }
-        nav{
+        nav { /*steuert navigationsleiste an*/
             margin-left: 10px;
             padding-top: 10px;
             border: darkgray 3px solid;
-            width: 1000px;
+            width: 1000px; /*width wie main*/
             height: 50px;
         }
-        nav ul {
+        nav ul { /*anordnung der liste in der navleiste*/
             display: flex;
             flex-direction: row;
             list-style-type: none;
         }
-        /*ergibt mehr sinn, wenn die einzelnen links sich mit zooms verschieben anstatt fest zu sein*/
-        nav ul li{
-            font-size: 20px;
-            margin: 0 auto;
+        nav ul li { /*abstand zwischen elementen der navleiste auf auto*/
+            margin-left: auto;
+            margin-right: auto;
         }
-
-        main{
-            width: 1000px;
+        main {
+            width: 1000px; /*width wie nav leiste*/
             height: fit-content;
-            margin-left: 280px;
+            margin-left: 220px;
             margin-top: 10px;
         }
-        main > img{
-            width: inherit;
-            height: 220px;
+        main > img {
+            width: inherit; /*übernimmt width vom parent*/
+            height: 400px;
             border: darkgray 3px solid;
             margin-bottom: 40px;
         }
-
-        #ankündigung article{
-            border: darkgray 2px solid;
-            margin: 15px 0;
+        #boxaroundp { /*border um lorem ipsum text*/
+            border: 1px solid black;
+            margin-bottom: 60px;
         }
-        #speisen{
-            margin: 40px 0;
+        #speisen {
+            margin-bottom: 60px;
         }
-        table, tr, th, td{
-            width: 1000px;
+        table, tr, th, td { /*tabelle zu "Köstlichkeiten, die Sie erwarten"*/
+            width: 1000px; /*breite tabelle wie main*/
             font-size: 20px;
-            border-collapse: collapse;
+            border-collapse: collapse; /*damit nicht doppelt umrandet*/
             border: 1px solid black;
             text-align: center;
+            margin-bottom: 60px;
         }
-        #abschied{
+        #abschied { /* "Wir freuen uns auf Ihren Besuch!" zentrieren*/
             text-align: center;
-        }
-        #zahlen {
-
         }
         #zahltext {
             display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-            padding-top: 30px;
-            padding-bottom: 50px;
-            margin-left: 50px;
-            margin-right: 50px;
+            flex-direction: row; /*anordnung der elemente*/
+            justify-content: space-around; /*gleichverteilung der 3 elemente*/
+            padding-top: 30px; /*abstand von elementen zur überschrift*/
+            margin-bottom: 60px;
         }
-        #zahltext p {
+        #zahltext p { /*steuert die 3 elemente der zahlen an*/
             font-size: 20px;
             font-weight: bold;
         }
         .fieldform {
             display: flex;
             flex-direction: row;
-            flex-wrap: wrap;
+            flex-wrap: wrap; /*sorgt für zeilenumsprung*/
             border: hidden;
             margin-top: 15px;
-            margin-bottom: 30px;
+            margin-bottom: 60px;
         }
         .fieldform div { /*damit zb "Ihr Name:" über der eingabe ist, nicht daneben*/
-            display: flex;
+            display: flex; /*gilt für die oberen 3 elemente der eingabe*/
             flex-direction: column;
         }
         .form * { /*abstand zwischen den eingabefeldern*/
@@ -131,14 +122,13 @@
             flex-direction: row;
             margin-top: 15px;
         }
-        .wichtig {
+        .wichtig { /*einrückung der unterpunkte bei "Das ist uns wichtig"*/
             margin-left: 200px;
         }
-        #wichtigFürUns {
-            margin-bottom: 60px;
+        #wichtigFürUns { /*abstand von den unterpunkten zu "Wir freuen uns..."*/
+            margin-bottom: 80px;
         }
-
-        footer {
+        footer { /*obere border bei footer*/
             border-top: #D9D9D9 3px solid;
         }
         footer ul {
@@ -146,8 +136,7 @@
             flex-direction: row;
             list-style-type: none;
             width: fit-content;
-            /*oben/unten: 10px und links/rechts: auto*/
-            margin: 10px auto;
+            margin: 10px auto; /*oben/unten: 10px und links/rechts: auto*/
         }
         footer ul li {
             margin-right: 10px;
@@ -155,8 +144,7 @@
             padding-top: 10px;
             padding-bottom: 10px;
         }
-        /*alle Listeneinträge bis auf das letzte haben ne border rechts*/
-        footer ul li:not(li:last-child){
+        footer ul li:not(li:last-child) { /*alle Listeneinträge bis auf das letzte haben ne border rechts*/
             border-right: lightgray 2px solid;
         }
     </style>
@@ -175,19 +163,22 @@
     </nav>
 </header>
 <main>
-    <img src="georghoever.jpeg" alt="Banner">
+    <img src="mensabild.jpg" alt="Banner">
     <section id="ankündigung">
         <h1>Bald gibt es Essen auch online ;)</h1>
-        <article>
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Maiores veritatis fugit ab magnam nesciunt autem necessitatibus, quia quo cupiditate, ad vel minus nam odit ex! Eum quidem commodi id autem!
+        <p id="boxaroundp">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maiores veritatis fugit ab magnam nesciunt autem necessitatibus, quia quo cupiditate, ad vel minus nam odit ex! Eum quidem commodi id autem!
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis, sed. Cupiditate blanditiis minus aperiam corrupti, veniam cumque adipisci quo esse exercitationem aspernatur praesentium fugiat commodi iste, aut nemo voluptas ullam.
             Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ipsum quam distinctio pariatur soluta fugiat quae, nobis nesciunt, modi labore asperiores maiores minus iusto totam, cumque enim quibusdam accusantium eaque ducimus?
             Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ullam aperiam vel debitis ad expedita aliquam sit vero soluta in obcaecati quidem suscipit, quod doloribus eligendi! Dolores assumenda reprehenderit unde incidunt.
             Lorem ipsum dolor sit amet consectetur, adipisicing elit. Debitis tempora eligendi aliquam architecto sunt sed, ratione quos doloremque deserunt omnis accusamus quisquam, corrupti ex dicta? Neque nam maiores esse explicabo!
-        </article>
+        </p>
     </section>
     <section id="speisen">
         <h1>Köstlichkeiten, die Sie erwarten</h1>
+        <!-- tr := "table row (Tabellenzeile)", Zeile kann th und td Elemente enthalten
+        th := "table header (Tabellenüberschrift)"
+        td := "table data (Tabellendaten)" -->
         <table>
             <tr>
                 <td></td>
@@ -211,7 +202,6 @@
             </tr>
         </table>
     </section>
-
     <section id="zahlen">
         <h1>E-Mensa in Zahlen</h1>
         <div id="zahltext">
@@ -220,12 +210,10 @@
         <p> 2 Speisen</p>
         </div>
     </section>
-
     <section id="kontakt">
         <h1>Interesse geweckt? Wir informieren Sie!</h1>
         <form class="form" action="Newsletter.html" method="post">
             <fieldset class="fieldform">
-                <legend></legend>
                 <div>
                     <label for="Name">Ihr Name:</label>
                     <input required type="text" id="Name" name="Vorname" placeholder="Vorname">
@@ -249,8 +237,6 @@
             </fieldset>
         </form>
     </section>
-
-    <br><br>
     <section id="wichtigFürUns">
         <h1>Das ist uns wichtig</h1><br>
         <ul>
