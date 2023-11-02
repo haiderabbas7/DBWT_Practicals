@@ -1,4 +1,9 @@
 <?php
+/**
+* Praktikum DBWT. Autoren:
+* Yannik, Sinthern, 3570151
+* Haider, Abbas, 3567272
+*/
 const GET_PARAM_MIN_STARS = 'search_min_stars';
 const GET_PARAM_SEARCH_TEXT = 'search_text';
 
