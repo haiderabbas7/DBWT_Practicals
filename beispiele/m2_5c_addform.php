@@ -22,9 +22,9 @@ include 'm2_5a_standardparameter.php';
 <body>
     <form method="get">
         <label for="operator_eins">Geben Sie den ersten Operator ein.</label><br>
-        <input id="operator_eins" type="text" name="operator_eins" placeholder="$a" required><br><br>
-        <label for="operator_zwei">Geben Sie den zweiten Operator ein. (LEER = 0)<br></label>
-        <input id="operator_zwei" type="text" name="operator_zwei" placeholder="$b" ><br><br>
+        <input id="operator_eins" type="text" name="operator_eins" placeholder="&a" required><br>
+        <label for="operator_zwei">Geben Sie den zweiten Operator ein. (LEER = 0)</label><br>
+        <input id="operator_zwei" type="text" name="operator_zwei" placeholder="&b"><br>
         <input type="submit" name="choice" value="Addieren">
         <input type="submit" name="choice" value="Multiplizieren">
     </form>
