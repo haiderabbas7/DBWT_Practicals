@@ -7,7 +7,6 @@
 const GET_PARAM_MIN_STARS = 'search_min_stars';
 const GET_PARAM_SEARCH_TEXT = 'search_text'; // Texteingabe bei filter
 const GET_PARAM_SHOW_DESCRIPTION = 'show_description';
-const GET_LANG = "lang";
 
 $show_description = 1; // standardmäßig die Beschreibung anzeigen
 
@@ -37,15 +36,12 @@ $language_en = [
         "Preis_intern" => "internal Price",
         "Preis_extern" => "external Price"
 ];
-// Sprache standardmäßig auf de setzen
-$language_used = [];
+// Sprache standardmäßig auf Deutsch setzen
+$language_used = $language_de; // Änderung: Standardmäßig auf Deutsch setzen
 
-if (isset($_GET[GET_LANG]) && $_GET[GET_LANG] == 'en') {
-    $language_used = $language_en;
-} else {
-    $language_used = $language_de;
+if (isset($_GET['sprache']) && $_GET['sprache'] == 'en') {
+    $language_used = $language_en; // Änderung: Bei Auswahl von "en" auf Englisch umschalten
 }
-
 
 /**
  * List of all allergens.
@@ -109,6 +105,24 @@ function calcMeanStars(array $ratings) : float {
     return $sum;
 }
 
+// Überprüfen, ob der GET-Parameter "whatrating" existiert und TOP-Bewertungen anzeigen soll
+if (isset($_GET['whatrating']) && $_GET['whatrating'] == 'top') {
+    // Logik, um TOP-Bewertungen anzuzeigen (zum Beispiel nur Bewertungen mit 4 oder 5 Sternen)
+    // array_filter itertiert über ratings und fügt die Elemente zu showRatings hinzu, die
+    // die Bedingung >= 4 erfüllen
+    $showRatings = array_filter($ratings, function($rating) { return $rating['stars'] >= 4; });
+}
+
+// Überprüfen, ob der GET-Parameter "whatrating" existiert und FLOPP-Bewertungen anzeigen soll
+if (isset($_GET['whatrating']) && $_GET['whatrating'] == 'flop') {
+    // Logik, um FLOPP-Bewertungen anzuzeigen (zum Beispiel nur Bewertungen mit 1 oder 2 Sternen)
+    // array_filter itertiert über ratings und fügt die Elemente zu showRatings hinzu, die
+    // die Bedingung <= 2 erfüllen
+    $showRatings = array_filter($ratings, function($rating) {
+        return $rating['stars'] <= 2;
+    });
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="de">
@@ -116,9 +130,7 @@ function calcMeanStars(array $ratings) : float {
         <meta charset="UTF-8"/>
         <!-- Sprache im title wechseln -->
         <title><?php
-            echo $language_used['Gericht'];
-            echo ": ";
-            echo $meal['name']; ?>
+            echo $language_used['Gericht'] . ": " . $meal['name']; ?>
         </title>
         <style>
             * {
@@ -132,9 +144,8 @@ function calcMeanStars(array $ratings) : float {
     <body>
     <!-- Schaltflächen zum wechseln der Sprache
      für "lang" entweder "de" oder "en" geschickt -->
-    <form method="get" action="meal.php">
-        <input type="submit" name="lang" value="de">
-        <input type="submit" name="lang" value="en">
+    <a href="meal.php?sprache=de">de</a> <!-- Änderung: Link für Deutsch -->
+    <a href="meal.php?sprache=en">en</a> <!-- Änderung: Link für Englisch -->
 
         <!-- Sprache im header wechseln -->
         <h1><?php
@@ -179,7 +190,15 @@ function calcMeanStars(array $ratings) : float {
                     } ?>">
             <input type="submit" value="<?php echo $language_used['Suchen'] ?>">
         </form>
-        <table class="rating">
+
+        <!-- TOP/FLOPP Bewertungen anzeigen -->
+        <form method="get" action="meal.php">
+            <input type="submit" name="whatrating" value="top"> <!-- Schaltfläche für TOP Bewertungen -->
+            <input type="submit" name="whatrating" value="flop"> <!-- Schaltfläche für FLOPP Bewertungen -->
+        </form>
+
+
+    <table class="rating">
             <thead>
             <tr>
                 <td><?php echo $language_used['Begründung']?></td>
