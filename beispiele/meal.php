@@ -7,6 +7,7 @@
 const GET_PARAM_MIN_STARS = 'search_min_stars';
 const GET_PARAM_SEARCH_TEXT = 'search_text'; // Texteingabe bei filter
 const GET_PARAM_SHOW_DESCRIPTION = 'show_description';
+const GET_LANG = "lang";
 
 $show_description = 1; // standardmäßig die Beschreibung anzeigen
 
@@ -14,6 +15,37 @@ $show_description = 1; // standardmäßig die Beschreibung anzeigen
 if (isset($_GET[GET_PARAM_SHOW_DESCRIPTION]) && ($_GET[GET_PARAM_SHOW_DESCRIPTION] == 0)) {
     $show_description = 0; // Wenn show_description = 0 ist, die Beschreibung nicht anzeigen
 }
+
+// Statische Texte in verschiedenen Sprachen
+$language_de = [
+        "Gericht" => "Gericht",
+        "Bewertung" => "Bewertung",
+        "Autor" => "Autor",
+        "Begründung" => "Begründung",
+        "Suchen" => "Suchen",
+        "Sterne" => "Sterne",
+        "Preis_intern" => "interner Preis",
+        "Preis_extern" => "externer Preis"
+];
+$language_en = [
+        "Gericht" => "Meal",
+        "Bewertung" => "Rating",
+        "Autor" => "Author",
+        "Begründung" => "Reason",
+        "Suchen" => "Search",
+        "Sterne" => "Stars",
+        "Preis_intern" => "internal Price",
+        "Preis_extern" => "external Price"
+];
+// Sprache standardmäßig auf de setzen
+$language_used = [];
+
+if (isset($_GET[GET_LANG]) && $_GET[GET_LANG] == 'en') {
+    $language_used = $language_en;
+} else {
+    $language_used = $language_de;
+}
+
 
 /**
  * List of all allergens.
@@ -82,7 +114,12 @@ function calcMeanStars(array $ratings) : float {
 <html lang="de">
     <head>
         <meta charset="UTF-8"/>
-        <title>Gericht: <?php echo $meal['name']; ?></title>
+        <!-- Sprache im title wechseln -->
+        <title><?php
+            echo $language_used['Gericht'];
+            echo ": ";
+            echo $meal['name']; ?>
+        </title>
         <style>
             * {
                 font-family: Arial, serif;
@@ -93,8 +130,16 @@ function calcMeanStars(array $ratings) : float {
         </style>
     </head>
     <body>
+    <!-- Schaltflächen zum wechseln der Sprache
+     für "lang" entweder "de" oder "en" geschickt -->
+    <form method="get" action="meal.php">
+        <input type="submit" name="lang" value="de">
+        <input type="submit" name="lang" value="en">
 
-        <h1>Gericht: <?php echo $meal['name']; ?></h1>
+        <!-- Sprache im header wechseln -->
+        <h1><?php
+            echo $language_used['Gericht'] . ": " . $meal['name']; ?>
+        </h1>
 
         <p><?php if ($show_description) {
                 echo $meal['description'];
@@ -111,7 +156,20 @@ function calcMeanStars(array $ratings) : float {
             </ul>
         </div>
 
-        <h1>Bewertungen (Insgesamt: <?php echo calcMeanStars($ratings); ?>)</h1>
+
+        <?php
+            /* left und right operand werden addiert, hier left + 0
+             * mit scale bestimmt man Anzahl der Nachkommastellen
+             */
+            echo $language_used['Preis_intern'] . ": " . bcadd($meal["price_intern"], '0', 2) . "€";
+            echo "<br>";
+            echo $language_used['Preis_extern'] . ": " . bcadd($meal["price_extern"], '0', 2) . "€";
+        ?>
+
+        <!-- Sprache wechseln im header zu den Bewertungen -->
+        <h1><?php
+            echo $language_used['Bewertung'] . " (Insgesamt: " . calcMeanStars($ratings); ?>)
+        </h1>
         <form method="get">
             <label for="search_text">Filter:</label>
             <input id="search_text" type="text" name="search_text" value="<?php if (isset($_GET[GET_PARAM_SEARCH_TEXT])) {
@@ -119,14 +177,14 @@ function calcMeanStars(array $ratings) : float {
                     } else {                                         // weiterhin das gesetzte Wort übergeben
                         echo "";                                     // Ansonsten leeres Wort nutzen
                     } ?>">
-            <input type="submit" value="Suchen">
+            <input type="submit" value="<?php echo $language_used['Suchen'] ?>">
         </form>
         <table class="rating">
             <thead>
             <tr>
-                <td>Text</td>
-                <td>Autor</td>
-                <td>Sterne</td>
+                <td><?php echo $language_used['Begründung']?></td>
+                <td><?php echo $language_used['Autor']?></td>
+                <td><?php echo $language_used['Sterne']?></td>
             </tr>
             </thead>
             <tbody>
