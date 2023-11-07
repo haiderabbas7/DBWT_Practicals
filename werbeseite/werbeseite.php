@@ -5,8 +5,42 @@
  * Haider, Abbas, 3567272
  */
 $gerichte = include('gerichte.php');
-    echo "Test";
+    $eingabe = fopen("newsletter.txt", 'a');
+    if (!$eingabe) {
+        die("Konnte nicht geöffnet werden");
+    }
 
+    $condition = true;
+    $status = "";
+    if(isset($_POST['vorname']) && $_POST['vorname'] != ""){
+        if(!ctype_alpha($_POST['vorname'])){
+            $status .= "FEHLER: Vorname darf nur Buchstaben enthalten. <br>";
+            $condition = false;
+        }
+
+        $leerzeichenCheck = false;
+        for($i = 0; $i < strlen($_POST['vorname']); $i++){
+            if($_POST['vorname'][$i] != " "){
+                $leerzeichenCheck = true;
+                break;
+            }
+        }
+        if(!$leerzeichenCheck){
+            $status .= "FEHLER: Vorname enthält unzulässige Zeichen. <br>";
+            $condition = false;
+        }
+    }
+    else{
+        $status .= "FEHLER: Bitte geben Sie einen Vornamen ein. <br>";
+        $condition = false;
+    }
+
+
+
+    if($condition && isset($_POST['abgeschickt'])){
+        //speichern
+        $status = "Alle Daten erfolgreich erfasst!";
+    }
 ?>
 <!DOCTYPE html>
 <!--
@@ -223,33 +257,39 @@ $gerichte = include('gerichte.php');
     </section>
     <section id="kontakt">
         <h1>Interesse geweckt? Wir informieren Sie!</h1>
-        <form class="form" action="Newsletter.html" method="post">
+        <form class="form" action="werbeseite.php" method="post">
             <fieldset class="fieldform">
                 <div>
-                    <label for="Name">Ihr Name:</label>
-                    <input required type="text" id="Name" name="Vorname" placeholder="Vorname">
+                    <label for="name">Ihr Name:</label>
+                    <input type="text" id="name" name="vorname" placeholder="Vorname">
                 </div>
                 <div>
-                    <label for="Email">Ihr Email:</label>
-                    <input required type="email" id="Email" name="Ihre Email">
+                    <label for="email">Ihr Email:</label>
+                    <input type="email" id="email" name="email">
                 </div>
                 <div>
                     <label for="lang">Newsletter bitte in:</label>
-                    <select id="lang">
-                        <option value="">Deutsch</option>
-                        <option value="">Englisch</option>
+                    <select id="lang" name="newsletter-sprache">
+                        <option value="deutsch">Deutsch</option>
+                        <option value="englisch">Englisch</option>
                     </select>
                 </div>
                 <div class="break"></div>
                 <div id="datenschutzdiv">
-                    <span><input type="checkbox" required> Den Datenschutzbestimmungen stimme ich zu</span>
-                    <span><input type="submit" disabled value="Zum Newsletter anmelden"></span>
+                    <span><input type="checkbox" name="datenschutz" value="akzeptiert"> Den Datenschutzbestimmungen stimme ich zu</span>
+                    <span><input type="submit" name="abgeschickt" value="Zum Newsletter anmelden"></span>
                 </div>
             </fieldset>
+            <?php if($condition){
+                echo "<h3 style='color: green'>" . $status ."</h3>";
+            }
+            else{
+                echo "<h3 style='color: red'>" . $status ."</h3>";
+            }?>
         </form>
     </section>
     <section id="wichtigFürUns">
-        <h1>Das ist uns wichtig</h1><br>
+        <h1><br>Das ist uns wichtig</h1><br>
         <ul>
             <li class="wichtig">Beste frische saisonale Zutaten</li>
             <li class="wichtig">Ausgewogene abwechslungsreiche Gerichte</li>
