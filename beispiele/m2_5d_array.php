@@ -15,9 +15,13 @@ $famousMeals = [
         'winner' => 2019]
 ];
 
+
 function noWinner($famousMeals) : void{
     for($i = 2000; $i < 2024; $i++){
+        //Reset der Bedingung
         $condition = false;
+
+        //Durchlaufen aller Einträge und Setzen der Bedingung, falls gefunden
         foreach($famousMeals as $meal){
             if(gettype($meal['winner']) == 'integer'){
                 if($i == $meal['winner']){
@@ -30,6 +34,8 @@ function noWinner($famousMeals) : void{
                 break;
             }
         }
+
+        //Ausgabe des Datums falls Bedingung gesetzt wurde
         if(!$condition){
             if($i == 2023){
                 echo $i;
@@ -55,24 +61,28 @@ function noWinner($famousMeals) : void{
     <ol>
         <?php
             foreach($famousMeals as $meal){
+                //Rückwärts-Zusammensetzen des Strings $jahre durch Fallunterscheidung int-array
                 $jahre = "";
-                if(gettype($meal['winner']) == 'integer'){
+                $currentJahre = $meal['winner'];
+                if(gettype($currentJahre) == 'integer'){
                     $jahre = $meal['winner'];
                 }
                 else {
-                    for ($i = count($meal['winner']) - 1; $i >= 0; $i--) {
+                    for ($i = count($currentJahre) - 1; $i >= 0; $i--) {
                         if ($i == 0) {
-                            $jahre .= $meal['winner'][$i];
+                            $jahre .= $currentJahre[$i];
                         } else {
-                            $jahre .= $meal['winner'][$i] . ", ";
+                            $jahre .= $currentJahre[$i] . ", ";
                         }
                     }
                 }
+
+                //Ausgabe der Daten als Listenelemente
                 echo "<li>" . $meal['name'] . "<br>" . $jahre . "</li>";
             }
         ?>
     </ol>
 </div>
-<h1>In den Jahren <?php noWinner($famousMeals)?> gab es keine Gewinner.</h1>
+<h3>In den Jahren <?php noWinner($famousMeals)?> gab es keine Gewinner.</h3>
 </body>
 </html>
