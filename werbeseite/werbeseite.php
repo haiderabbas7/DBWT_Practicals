@@ -4,43 +4,72 @@
  * Yannik, Sinthern, 3570151
  * Haider, Abbas, 3567272
  */
-$gerichte = include('gerichte.php');
-    $eingabe = fopen("newsletter.txt", 'a');
-    if (!$eingabe) {
-        die("Konnte nicht geöffnet werden");
-    }
+include('gerichte.php');
+$schmutz = [
+        1 => "rcpt.at",
+		2 => "damnthespam.at",
+		3 => "wegwerfmail.de",
+		4 => "trashmail."
+];
 
-    $condition = true;
-    $status = "";
-    if(isset($_POST['vorname']) && $_POST['vorname'] != ""){
-        if(!ctype_alpha($_POST['vorname'])){
-            $status .= "FEHLER: Vorname darf nur Buchstaben enthalten. <br>";
-            $condition = false;
-        }
 
-        $leerzeichenCheck = false;
-        for($i = 0; $i < strlen($_POST['vorname']); $i++){
-            if($_POST['vorname'][$i] != " "){
-                $leerzeichenCheck = true;
-                break;
-            }
-        }
-        if(!$leerzeichenCheck){
-            $status .= "FEHLER: Vorname enthält unzulässige Zeichen. <br>";
-            $condition = false;
-        }
-    }
-    else{
-        $status .= "FEHLER: Bitte geben Sie einen Vornamen ein. <br>";
+$eingabe = fopen("newsletter.txt", 'a');
+if (!$eingabe) {
+    die("Konnte nicht geöffnet werden");
+}
+
+$condition = true;
+$status = "";
+if(isset($_POST['vorname']) && $_POST['vorname'] != ""){
+    if(!ctype_alpha($_POST['vorname'])){
+        $status .= "FEHLER: Vorname darf nur Buchstaben enthalten. <br>";
         $condition = false;
     }
 
-
-
-    if($condition && isset($_POST['abgeschickt'])){
-        //speichern
-        $status = "Alle Daten erfolgreich erfasst!";
+    $leerzeichenCheck = false;
+    for($i = 0; $i < strlen($_POST['vorname']); $i++){
+        if($_POST['vorname'][$i] != " "){
+            $leerzeichenCheck = true;
+            break;
+        }
     }
+    if(!$leerzeichenCheck){
+        $status .= "FEHLER: Vorname enthält unzulässige Zeichen. <br>";
+        $condition = false;
+    }
+}
+else{
+    $status .= "FEHLER: Bitte geben Sie einen Vornamen ein. <br>";
+    $condition = false;
+}
+
+if(!(isset($_POST['datenschutz']) &&  $_POST['datenschutz'] == "akzeptiert")){
+    $status .= "FEHLER: Bitte akzeptieren Sie die Datenschutzbestimmungen. <br>";
+    $condition = false;
+}
+
+if(isset($_POST['email']) && $_POST['email'] != ""){
+    if(!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)){
+        $status .= "FEHLER: Bitte geben sie eine korrekte E-Mail Adresse an. <br>";
+        $condition = false;
+    }
+    foreach ($schmutz as $trashmail){
+        if(strpos($_POST['email'], $trashmail)){
+            $status .= "FEHLER: Trash-Mail identifiziert. Bitte nutzen Sie eine andere E-Mail Adresse. <br>";
+            $condition = false;
+            break;
+        }
+    }
+}
+else{
+    $status .= "FEHLER: Bitte geben sie eine E-Mail Adresse an. <br>";
+    $condition = false;
+}
+
+if($condition && isset($_POST['abgeschickt'])){
+    fwrite($eingabe, $_POST['vorname'] . " | " . $_POST['email'] . " | " . $_POST['newsletter-sprache']  . "\n");
+    $status = "Alle Daten erfolgreich erfasst!";
+}
 ?>
 <!DOCTYPE html>
 <!--
@@ -231,14 +260,14 @@ $gerichte = include('gerichte.php');
                 <td>Bild</td>
             </tr>
             <?php
-                foreach($gerichte as $gericht){
-                    echo '<tr>' .
-                            '<td>' . $gericht['name'] . '</td>' .
-                            '<td>' . $gericht['preisIntern'] . '</td>' .
-                            '<td>' . $gericht['preisExtern'] . '</td>' .
-                            '<td> <img src="img/' . $gericht['name'] . '.png" alt="' . $gericht['name'] .'" width="200" height="200"></td>' .
-                        '</tr>';
-                }
+            foreach($gerichte as $gericht){
+                echo '<tr>' .
+                    '<td>' . $gericht['name'] . '</td>' .
+                    '<td>' . $gericht['preisIntern'] . '</td>' .
+                    '<td>' . $gericht['preisExtern'] . '</td>' .
+                    '<td> <img src="img/' . $gericht['name'] . '.png" alt="' . $gericht['name'] .'" width="200" height="200"></td>' .
+                    '</tr>';
+            }
             ?>
             <tr>
                 <td>...</td>
@@ -250,9 +279,9 @@ $gerichte = include('gerichte.php');
     <section id="zahlen">
         <h1>E-Mensa in Zahlen</h1>
         <div id="zahltext">
-        <p>x Besuche</p>
-        <p>y Anmeldungen zum <br> Newsletter</p>
-        <p>2 Speisen</p>
+            <p>x Besuche</p>
+            <p>y Anmeldungen zum <br> Newsletter</p>
+            <p>2 Speisen</p>
         </div>
     </section>
     <section id="kontakt">
@@ -265,7 +294,7 @@ $gerichte = include('gerichte.php');
                 </div>
                 <div>
                     <label for="email">Ihr Email:</label>
-                    <input type="email" id="email" name="email">
+                    <input type="text" id="email" name="email">
                 </div>
                 <div>
                     <label for="lang">Newsletter bitte in:</label>
