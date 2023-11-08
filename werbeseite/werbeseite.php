@@ -326,7 +326,7 @@ while (!feof($file2)) {
         </p>
         <p>
             <?php echo $count_registrations . " Anmeldungen zum <br> Newsletter"; ?>
-            y Anmeldungen zum <br> Newsletter</p>
+        </p>
         <p>
             <?php echo $count_meals . " Speisen" ?>
         </p>
