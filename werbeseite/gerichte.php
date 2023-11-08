@@ -4,6 +4,7 @@
  * Yannik, Sinthern, 3570151
  * Haider, Abbas, 3567272
  */
+
 $gerichte = array(
     1 => ['name' => 'Rindfleisch mit Bambus, Kaiserschoten und rotem Paprika, dazu Mie Nudeln',
         'preisIntern' => '3,50',
