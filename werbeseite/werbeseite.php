@@ -5,9 +5,6 @@
  * Haider, Abbas, 3567272
  */
 
-include('gerichte.php');
-echo "Test";
-
 // AUFGABE 8
 include('gerichte.php');
 echo "Test";
