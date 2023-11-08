@@ -4,6 +4,7 @@
  * Yannik, Sinthern, 3570151
  * Haider, Abbas, 3567272
  */
+
 include('gerichte.php');
 echo "Test";
 
