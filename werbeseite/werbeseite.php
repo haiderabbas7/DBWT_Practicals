@@ -8,6 +8,80 @@
 include('gerichte.php');
 echo "Test";
 
+// AUFGABE 8
+include('gerichte.php');
+echo "Test";
+$schmutz = [
+    1 => "rcpt.at",
+    2 => "damnthespam.at",
+    3 => "wegwerfmail.de",
+    4 => "trashmail."
+];
+
+$eingabe = fopen("newsletter.txt", 'a');
+if (!$eingabe) {
+    die("Konnte nicht geöffnet werden");
+}
+
+$condition = true;
+$status = "";
+//Check Vorname
+if(isset($_POST['vorname']) && $_POST['vorname'] != ""){
+    if(!ctype_alpha($_POST['vorname'])){
+        $status .= "FEHLER: Vorname darf nur Buchstaben enthalten. <br>";
+        $condition = false;
+    }
+
+    $leerzeichenCheck = false;
+    for($i = 0; $i < strlen($_POST['vorname']); $i++){
+        if($_POST['vorname'][$i] != " "){
+            $leerzeichenCheck = true;
+            break;
+        }
+    }
+    if(!$leerzeichenCheck){
+        $status .= "FEHLER: Vorname enthält unzulässige Zeichen. <br>";
+        $condition = false;
+    }
+}
+else{
+    $status .= "FEHLER: Bitte geben Sie einen Vornamen ein. <br>";
+    $condition = false;
+}
+
+//Check Datenschutz
+if(!(isset($_POST['datenschutz']) &&  $_POST['datenschutz'] == "akzeptiert")){
+    $status .= "FEHLER: Bitte akzeptieren Sie die Datenschutzbestimmungen. <br>";
+    $condition = false;
+}
+
+//Check E-Mail
+if(isset($_POST['email']) && $_POST['email'] != ""){
+    if(!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)){
+        $status .= "FEHLER: Bitte geben sie eine korrekte E-Mail Adresse an. <br>";
+        $condition = false;
+    }
+    foreach ($schmutz as $trashmail){
+        if(strpos($_POST['email'], $trashmail)){
+            $status .= "FEHLER: Trash-Mail identifiziert. Bitte nutzen Sie eine andere E-Mail Adresse. <br>";
+            $condition = false;
+            break;
+        }
+    }
+}
+else{
+    $status .= "FEHLER: Bitte geben sie eine E-Mail Adresse an. <br>";
+    $condition = false;
+}
+
+if($condition && isset($_POST['abgeschickt'])){
+    fwrite($eingabe, $_POST['vorname'] . " | " . $_POST['email'] . " | " . $_POST['newsletter-sprache']  . "\n");
+    $status = "Alle Daten erfolgreich erfasst!";
+}
+
+
+// AUFGABE 9
+
 // JEDEN BESUCH SPEICHERN
 // accesslog.txt öffnen, writing only
 $file = fopen('./accesslog.txt', 'a');
@@ -23,7 +97,7 @@ fclose($file);
 // accesslog.txt öffnen, reading only
 $file = fopen('accesslog.txt', 'r');
 // es kommt immer visits+1 raus, wenn man bei 0 anfängt
-// nochmal nachgucken warum immer eins zu viel gezählt wird
+// nochmal nachgucken warum immer eins zu viel gezählt wird lulw
 $count_visits = -1;
 // Solange man noch nicht am Ende des files angekommen ist
 while (!feof($file)) {
@@ -37,11 +111,15 @@ foreach($gerichte as $gericht){
     $count_meals++;
 }
 
+// ANZAHL NEWSLETTER ANMELDUNGEN ZÄHLEN
+$file2 = fopen('./newsletter.txt', 'r');
+$count_registrations = -1;
+while (!feof($file2)) {
+    $line = fgets($file2);
+    $count_registrations++;
+}
 
 ?>
-
-
-
 
 <!DOCTYPE html>
 <html lang="zxx">
@@ -249,7 +327,9 @@ foreach($gerichte as $gericht){
         <p>
             <?php echo $count_visits . " Besuche"; ?>
         </p>
-        <p>y Anmeldungen zum <br> Newsletter</p>
+        <p>
+            <?php echo $count_registrations . " Anmeldungen zum <br> Newsletter"; ?>
+            y Anmeldungen zum <br> Newsletter</p>
         <p>
             <?php echo $count_meals . " Speisen" ?>
         </p>
@@ -257,29 +337,38 @@ foreach($gerichte as $gericht){
     </section>
     <section id="kontakt">
         <h1>Interesse geweckt? Wir informieren Sie!</h1>
-        <form class="form" action="Newsletter.html" method="post">
+        <form class="form" action="werbeseite.php" method="post">
             <fieldset class="fieldform">
                 <div>
-                    <label for="Name">Ihr Name:</label>
-                    <input required type="text" id="Name" name="Vorname" placeholder="Vorname">
+                    <label for="name">Ihr Name:</label>
+                    <input type="text" id="name" name="vorname" placeholder="Vorname">
                 </div>
                 <div>
-                    <label for="Email">Ihr Email:</label>
-                    <input required type="email" id="Email" name="Ihre Email">
+                    <label for="email">Ihr Email:</label>
+                    <input type="text" id="email" name="email">
                 </div>
                 <div>
                     <label for="lang">Newsletter bitte in:</label>
-                    <select id="lang">
-                        <option value="">Deutsch</option>
-                        <option value="">Englisch</option>
+                    <select id="lang" name="newsletter-sprache">
+                        <option value="deutsch">Deutsch</option>
+                        <option value="englisch">Englisch</option>
                     </select>
                 </div>
                 <div class="break"></div>
                 <div id="datenschutzdiv">
-                    <span><input type="checkbox" required> Den Datenschutzbestimmungen stimme ich zu</span>
-                    <span><input type="submit" disabled value="Zum Newsletter anmelden"></span>
+                    <span><input type="checkbox" name="datenschutz" value="akzeptiert"> Den Datenschutzbestimmungen stimme ich zu</span>
+                    <span><input type="submit" name="abgeschickt" value="Zum Newsletter anmelden"></span>
                 </div>
             </fieldset>
+            <?php
+            if(isset($_POST['abgeschickt']) && $_POST['abgeschickt'] == "Zum Newsletter anmelden"){
+                if($condition){
+                    echo "<h3 style='color: green'>" . $status ."</h3>";
+                }
+                else{
+                    echo "<h3 style='color: red'>" . $status ."</h3>";
+                }
+            }?>
         </form>
     </section>
     <section id="wichtigFürUns">
