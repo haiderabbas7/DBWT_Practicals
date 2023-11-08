@@ -13,6 +13,6 @@ include 'm2_5a_standardparameter.php';
 <body>
     <?php echo var_dump(addieren(1,)) ?><br>
     <?php echo var_dump(addieren("3",2.1)) ?><br>
-    <?php echo var_dump(addieren("3","2")) ?><br>
+    <?php echo var_dump(addieren("3.1","2.1")) ?><br>
 </body>
 </html>

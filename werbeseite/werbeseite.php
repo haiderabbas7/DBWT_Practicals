@@ -5,6 +5,7 @@
  * Haider, Abbas, 3567272
  */
 include('gerichte.php');
+echo "Test";
 $schmutz = [
         1 => "rcpt.at",
 		2 => "damnthespam.at",
@@ -20,6 +21,7 @@ if (!$eingabe) {
 
 $condition = true;
 $status = "";
+//Check Vorname
 if(isset($_POST['vorname']) && $_POST['vorname'] != ""){
     if(!ctype_alpha($_POST['vorname'])){
         $status .= "FEHLER: Vorname darf nur Buchstaben enthalten. <br>";
@@ -43,11 +45,13 @@ else{
     $condition = false;
 }
 
+//Check Datenschutz
 if(!(isset($_POST['datenschutz']) &&  $_POST['datenschutz'] == "akzeptiert")){
     $status .= "FEHLER: Bitte akzeptieren Sie die Datenschutzbestimmungen. <br>";
     $condition = false;
 }
 
+//Check E-Mail
 if(isset($_POST['email']) && $_POST['email'] != ""){
     if(!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)){
         $status .= "FEHLER: Bitte geben sie eine korrekte E-Mail Adresse an. <br>";
@@ -309,11 +313,14 @@ if($condition && isset($_POST['abgeschickt'])){
                     <span><input type="submit" name="abgeschickt" value="Zum Newsletter anmelden"></span>
                 </div>
             </fieldset>
-            <?php if($condition){
-                echo "<h3 style='color: green'>" . $status ."</h3>";
-            }
-            else{
-                echo "<h3 style='color: red'>" . $status ."</h3>";
+            <?php
+            if(isset($_POST['abgeschickt']) && $_POST['abgeschickt'] == "Zum Newsletter anmelden"){
+                if($condition){
+                    echo "<h3 style='color: green'>" . $status ."</h3>";
+                }
+                else{
+                    echo "<h3 style='color: red'>" . $status ."</h3>";
+                }
             }?>
         </form>
     </section>

@@ -93,8 +93,14 @@ function calcMeanStars(array $ratings) : float{
         <p><?php echo $meal['description']; ?></p>
         <div>Folgende Allergene sind in unserem Gericht enthalten:<ul>
             <?php
-                foreach($allergens as $allergen){
-                    echo "<li>{$allergen}</li>";
+                //holt sich die Keys aus dem Array $allergens
+                $allergenKeys = array_keys($allergens);
+
+                //Für jeden Key, falls ein Key im Array der Allergene des Gerichts sind, so wird das zugehörige Allergen printed
+                foreach($allergenKeys as $allergenKey){
+                    if(in_array($allergenKey, $meal['allergens']) ) {
+                        echo "<li>{$allergens[$allergenKey]}</li>";
+                    }
                 }?>
             </ul>
         </div>

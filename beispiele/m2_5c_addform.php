@@ -7,10 +7,10 @@
 
 include 'm2_5a_standardparameter.php';
     $c = 0;
-    if(!empty($_GET['operator_eins'])) {
-        if(!empty($_GET['choice']) && $_GET['choice'] == 'Addieren')
+    if(isset($_GET['operator_eins'])) {
+        if(isset($_GET['choice']) && $_GET['choice'] == 'Addieren')
             $c = addieren($_GET['operator_eins'], $_GET['operator_zwei']);
-        else if(!empty($_GET['choice']) && $_GET['choice'] == 'Multiplizieren'){
+        else if(isset($_GET['choice']) && $_GET['choice'] == 'Multiplizieren'){
             $c = ($_GET['operator_eins'] * $_GET['operator_zwei']);
         }
     }

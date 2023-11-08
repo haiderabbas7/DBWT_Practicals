@@ -63,16 +63,16 @@ function noWinner($famousMeals) : void{
             foreach($famousMeals as $meal){
                 //Rückwärts-Zusammensetzen des Strings $jahre durch Fallunterscheidung int-array
                 $jahre = "";
-                $currentJahre = $meal['winner'];
-                if(gettype($currentJahre) == 'integer'){
+                if(gettype($meal['winner']) == 'integer'){
                     $jahre = $meal['winner'];
                 }
                 else {
-                    for ($i = count($currentJahre) - 1; $i >= 0; $i--) {
+                    for ($i = count($meal['winner']) - 1; $i >= 0; $i--) {
                         if ($i == 0) {
-                            $jahre .= $currentJahre[$i];
-                        } else {
-                            $jahre .= $currentJahre[$i] . ", ";
+                            $jahre .= $meal['winner'][$i];
+                        }
+                        else{
+                            $jahre .= $meal['winner'][$i] . ", ";
                         }
                     }
                 }
