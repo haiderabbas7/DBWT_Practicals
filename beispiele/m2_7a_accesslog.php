@@ -9,6 +9,8 @@ $file = fopen('./accesslog.txt', 'a');
 
 // Aktuelle Zeit in timestamp speichern
 $timestamp = time();
+// date.month.Year- Hour.minutes
+// zeit aus timestamp wird nach diesem format formatiert
 $datum = date("d.m.Y- H:i", $timestamp);
 fwrite($file, "Date: " . $datum . " ");
 fwrite($file, "User-Agent: " . $_SERVER["HTTP_USER_AGENT"] . " ");

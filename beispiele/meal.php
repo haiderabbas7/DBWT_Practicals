@@ -82,7 +82,7 @@ $showRatings = []; // leeres Array erstellen, das später die gefilterten Bewert
 if (!empty($_GET[GET_PARAM_SEARCH_TEXT])) {     // wenn ein Suchbegriff in der URL übergeben wurde
     $searchTerm = $_GET[GET_PARAM_SEARCH_TEXT]; // wird dieser in $searchTerm gespeichert
     foreach ($ratings as $rating) {             // durch $ratings iterieren
-        if (stripos($rating['text'], $searchTerm) !== false) { // Falls $searchTerm im text vorkommt
+        if (stripos($rating['text'], $searchTerm) !== false) { // Falls $searchTerm im text der bewertung vorkommt
             $showRatings[] = $rating;                          // wird diese Bewertung dem Array hinzugefügt
         }
     }
@@ -110,7 +110,10 @@ if (isset($_GET['whatrating']) && $_GET['whatrating'] == 'top') {
     // Logik, um TOP-Bewertungen anzuzeigen (zum Beispiel nur Bewertungen mit 4 oder 5 Sternen)
     // array_filter itertiert über ratings und fügt die Elemente zu showRatings hinzu, die
     // die Bedingung >= 4 erfüllen
-    $showRatings = array_filter($ratings, function($rating) { return $rating['stars'] >= 4; });
+    function isHighRating($rating) : bool {
+        return $rating['stars'] >= 4;
+    }
+    $showRatings = array_filter($ratings, 'isHighRating');
 }
 
 // Überprüfen, ob der GET-Parameter "whatrating" existiert und FLOPP-Bewertungen anzeigen soll
@@ -118,9 +121,10 @@ if (isset($_GET['whatrating']) && $_GET['whatrating'] == 'flop') {
     // Logik, um FLOPP-Bewertungen anzuzeigen (zum Beispiel nur Bewertungen mit 1 oder 2 Sternen)
     // array_filter itertiert über ratings und fügt die Elemente zu showRatings hinzu, die
     // die Bedingung <= 2 erfüllen
-    $showRatings = array_filter($ratings, function($rating) {
+    function isLowRating($rating) : bool {
         return $rating['stars'] <= 2;
-    });
+    }
+    $showRatings = array_filter($ratings, 'isLowRating');
 }
 
 ?>
@@ -160,6 +164,7 @@ if (isset($_GET['whatrating']) && $_GET['whatrating'] == 'flop') {
         <div>Folgende Allergene sind in unserem Gericht enthalten:
             <ul>
                 <?php
+                // $allergen => value, dann greife ich mit value direkt auf den zahlenwert des allergens zu
                 foreach ($meal['allergens'] as $allergen => $value) { // (array as value)
                     echo "<li>$allergens[$value]</li>";
                 }
@@ -171,6 +176,7 @@ if (isset($_GET['whatrating']) && $_GET['whatrating'] == 'flop') {
         <?php
             /* left und right operand werden addiert, hier left + 0
              * mit scale bestimmt man Anzahl der Nachkommastellen
+             * bcadd = binary calculator add
              */
             echo $language_used['Preis_intern'] . ": " . bcadd($meal["price_intern"], '0', 2) . "€";
             echo "<br>";
@@ -183,10 +189,11 @@ if (isset($_GET['whatrating']) && $_GET['whatrating'] == 'flop') {
         </h1>
         <form method="get">
             <label for="search_text">Filter:</label>
-            <input id="search_text" type="text" name="search_text" value="<?php if (isset($_GET[GET_PARAM_SEARCH_TEXT])) {
-                        echo $_GET[GET_PARAM_SEARCH_TEXT];           // Wenn search_text gesetzt ist
-                    } else {                                         // weiterhin das gesetzte Wort übergeben
-                        echo "";                                     // Ansonsten leeres Wort nutzen
+            <input id="search_text" type="text" name="search_text"
+                   value="<?php if (isset($_GET[GET_PARAM_SEARCH_TEXT])) {
+                        echo $_GET[GET_PARAM_SEARCH_TEXT];  // Wenn search_text gesetzt ist
+                    } else {                                // weiterhin das gesetzte Wort übergeben
+                        echo "";                            // Ansonsten leeres Wort nutzen
                     } ?>">
             <input type="submit" value="<?php echo $language_used['Suchen'] ?>">
         </form>
@@ -197,8 +204,11 @@ if (isset($_GET['whatrating']) && $_GET['whatrating'] == 'flop') {
             <input type="submit" name="whatrating" value="flop"> <!-- Schaltfläche für FLOPP Bewertungen -->
         </form>
 
-
+    <!-- tr := "table row (Tabellenzeile)", Zeile kann th und td Elemente enthalten
+     th := "table header (Tabellenüberschrift)"
+     td := "table data (Tabellendaten)" -->
     <table class="rating">
+            <!-- thead definiert kopfzeile von tabelle -->
             <thead>
             <tr>
                 <td><?php echo $language_used['Begründung']?></td>
@@ -206,6 +216,7 @@ if (isset($_GET['whatrating']) && $_GET['whatrating'] == 'flop') {
                 <td><?php echo $language_used['Sterne']?></td>
             </tr>
             </thead>
+            <!-- tbody enthält hauptdateninhalt der tabelle -->
             <tbody>
             <?php
         foreach ($showRatings as $rating) { // (array as value), iteriert durch alle ratings in showRatings
