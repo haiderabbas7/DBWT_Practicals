@@ -7,6 +7,9 @@
 
 $file = fopen('./accesslog.txt', 'a');
 
+// '$_' ist präfix von superglobalen Vars
+// mit $_SERVER hat man zugriff auf user agent, ip addr etc.
+
 // Aktuelle Zeit in timestamp speichern
 $timestamp = time();
 // date.month.Year- Hour.minutes
