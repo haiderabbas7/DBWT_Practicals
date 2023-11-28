@@ -42,12 +42,6 @@ $language_used = $language_de; // Änderung: Standardmäßig auf Deutsch setzen
 if (isset($_GET['sprache']) && $_GET['sprache'] == 'en') {
     $language_used = $language_en; // Änderung: Bei Auswahl von "en" auf Englisch umschalten
 }
-* Praktikum DBWT. Autoren:
-* Yannik, Sinthern, 3570151
-* Haider, Abbas, 3567272
-*/
-const GET_PARAM_MIN_STARS = 'search_min_stars';
-const GET_PARAM_SEARCH_TEXT = 'search_text';
 
 /**
  * List of all allergens.
@@ -84,10 +78,10 @@ $ratings = [
         'stars' => 3 ]
 ];
 
-<<<<<<< HEAD
+
 $showRatings = [];
 //falls beim Filter für den Suchbegriff-Namen 'search_text' etwas eingegeben wurde
-if (!empty($_GET[GET_PARAM_SEARCH_TEXT])){
+if (!empty($_GET[GET_PARAM_SEARCH_TEXT])) {
     //$searchTerm ist der Filterbegriff
     $searchTerm = $_GET[GET_PARAM_SEARCH_TEXT];
     foreach ($ratings as $rating) {
@@ -96,49 +90,41 @@ if (!empty($_GET[GET_PARAM_SEARCH_TEXT])){
         }
     }
 //falls beim Filter für den Suchbegriff-Namen 'search_min_stars' etwas eingegeben wurde
-=======
-$showRatings = []; // leeres Array erstellen, das später die gefilterten Bewertungen speichern wird
-if (!empty($_GET[GET_PARAM_SEARCH_TEXT])) {     // wenn ein Suchbegriff in der URL übergeben wurde
-    $searchTerm = $_GET[GET_PARAM_SEARCH_TEXT]; // wird dieser in $searchTerm gespeichert
-    foreach ($ratings as $rating) {             // durch $ratings iterieren
-        if (stripos($rating['text'], $searchTerm) !== false) { // Falls $searchTerm im text der bewertung vorkommt
-            $showRatings[] = $rating;                          // wird diese Bewertung dem Array hinzugefügt
-        }
-    }
->>>>>>> yannik
-} else if (!empty($_GET[GET_PARAM_MIN_STARS])) {
-    $minStars = $_GET[GET_PARAM_MIN_STARS];
-    foreach ($ratings as $rating) {
-        if ($rating['stars'] >= $minStars) {
-            $showRatings[] = $rating;
-        }
-    }
-<<<<<<< HEAD
-//gar keine filter angegeben
-} else {
-    $showRatings = $ratings;
-}
 
-function calcMeanStars(array $ratings) : float{
-    $sum = 0;
-    foreach ($ratings as $rating) {
-        $sum += $rating['stars'] / count($ratings);
-=======
-} else { // Falls die Eingabe leer ist wird nicht gefiltert
-    $showRatings = $ratings;
+    $showRatings = []; // leeres Array erstellen, das später die gefilterten Bewertungen speichern wird
+    if (!empty($_GET[GET_PARAM_SEARCH_TEXT])) {     // wenn ein Suchbegriff in der URL übergeben wurde
+        $searchTerm = $_GET[GET_PARAM_SEARCH_TEXT]; // wird dieser in $searchTerm gespeichert
+        foreach ($ratings as $rating) {             // durch $ratings iterieren
+            if (stripos($rating['text'], $searchTerm) !== false) { // Falls $searchTerm im text der bewertung vorkommt
+                $showRatings[] = $rating;                          // wird diese Bewertung dem Array hinzugefügt
+            }
+        }
+
+    } else if (!empty($_GET[GET_PARAM_MIN_STARS])) {
+        $minStars = $_GET[GET_PARAM_MIN_STARS];
+        foreach ($ratings as $rating) {
+            if ($rating['stars'] >= $minStars) {
+                $showRatings[] = $rating;
+            }
+        }
+
+//gar keine filter angegeben
+    } else {
+        $showRatings = $ratings;
+    }
 }
 
 function calcMeanStars(array $ratings) : float {
     $sum = 0;
     foreach ($ratings as $rating) {
         $sum += $rating['stars'] / count($ratings); // count gibt Anzahl der Elemente im Array zurück
->>>>>>> yannik
+
     }
     return $sum;
 }
 
-<<<<<<< HEAD
-=======
+
+
 // Überprüfen, ob der GET-Parameter "whatrating" existiert und TOP-Bewertungen anzeigen soll
 if (isset($_GET['whatrating']) && $_GET['whatrating'] == 'top') {
     // Logik, um TOP-Bewertungen anzuzeigen (zum Beispiel nur Bewertungen mit 4 oder 5 Sternen)
@@ -161,7 +147,7 @@ if (isset($_GET['whatrating']) && $_GET['whatrating'] == 'flop') {
     $showRatings = array_filter($ratings, 'isLowRating');
 }
 
->>>>>>> yannik
+
 ?>
 <!DOCTYPE html>
 <html lang="de">
