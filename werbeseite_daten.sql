@@ -23,7 +23,7 @@ INSERT INTO `allergen` (`code`, `name`, `typ`) VALUES
 	('h3', 'Walnüsse', 'Allergen'),
 	('i', 'Erdnüsse', 'Allergen');
 
-INSERT INTO `gericht` (`id`, `name`, `beschreibung`, `erfasst_am`, `vegan`, `vegetarisch`, `preisintern`, `preisextern`) VALUES
+INSERT INTO `gericht` (`id`, `name`, `beschreibung`, `erfasst_am`, `vegan`, `vegetarisch`, `preis_intern`, `preis_extern`) VALUES
 	(1, 'Bratkartoffeln mit Speck und Zwiebeln', 'Kartoffeln mit Zwiebeln und gut Speck', '2020-08-25', 0, 0, 2.3, 4),
 	(3, 'Bratkartoffeln mit Zwiebeln', 'Kartoffeln mit Zwiebeln und ohne Speck', '2020-08-25', 1, 1, 2.3, 4),
 	(4, 'Grilltofu', 'Fein gewürzt und mariniert', '2020-08-25', 1, 1, 2.5, 4.5),
@@ -89,4 +89,17 @@ INSERT INTO `kategorie` (`id`, `eltern_id`, `name`, `bildname`) VALUES
 INSERT INTO `gericht_hat_kategorie` (`kategorie_id`, `gericht_id`) VALUES
 	(3, 1),	(3, 3),	(3, 4),	(3, 5),	(3, 6),	(3, 7),	(3, 9),	(4, 16), (4, 17), (4, 18), (5, 16), (5, 17), (5, 18);
 
+CREATE TABLE wunschgericht(
+                              nummer INT8 PRIMARY KEY,
+                              eingetragen_von_ersteller_id,
+                              FOREIGN KEY (eingetragen_von_ersteller_id) REFERENCES ersteller(ersteller_id) ,
+                              name VARCHAR(300) NOT NULL,
+                              erstellungsdatum,
+                              beschreibung
+);
 
+CREATE TABLE ersteller(
+                              ersteller_id,
+                              name,
+                              email
+);
