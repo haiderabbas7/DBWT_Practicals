@@ -4,15 +4,16 @@
  * Yannik, Sinthern, 3570151
  * Haider, Abbas, 3567272
  */
+
+// AUFGABE 8
 include('gerichte.php');
 echo "Test";
 $schmutz = [
-        1 => "rcpt.at",
-		2 => "damnthespam.at",
-		3 => "wegwerfmail.de",
-		4 => "trashmail."
+    1 => "rcpt.at",
+    2 => "damnthespam.at",
+    3 => "wegwerfmail.de",
+    4 => "trashmail."
 ];
-
 
 $eingabe = fopen("newsletter.txt", 'a');
 if (!$eingabe) {
@@ -74,7 +75,51 @@ if($condition && isset($_POST['abgeschickt'])){
     fwrite($eingabe, $_POST['vorname'] . " | " . $_POST['email'] . " | " . $_POST['newsletter-sprache']  . "\n");
     $status = "Alle Daten erfolgreich erfasst!";
 }
+
+
+// AUFGABE 9
+
+// JEDEN BESUCH SPEICHERN
+// accesslog.txt öffnen, writing only
+$file = fopen('./accesslog.txt', 'a');
+// Aktuelle Zeit in timestamp speichern
+$timestamp = time();
+// date.month.Year- Hour.minutes
+// zeit aus timestamp wird nach diesem format formatiert
+$datum = date("d.m.Y- H:i", $timestamp);
+fwrite($file, "Date: " . $datum . " ");
+fwrite($file, "User-Agent: " . $_SERVER["HTTP_USER_AGENT"] . " ");
+fwrite($file, "IP: " . $_SERVER['REMOTE_ADDR'] . "\n");
+fclose($file);
+
+// ANZAHL BESUCHE ZÄHLEN
+// accesslog.txt öffnen, reading only
+$file = fopen('accesslog.txt', 'r');
+// es kommt immer visits+1 raus, wenn man bei 0 anfängt
+// nochmal nachgucken warum immer eins zu viel gezählt wird lulw
+$count_visits = -1;
+// Solange man noch nicht am Ende des files angekommen ist
+while (!feof($file)) {
+    $line = fgets($file);
+    $count_visits++;
+}
+
+// ANZAHL GERICHTE ZÄHLEN
+$count_meals = 0;
+foreach($gerichte as $gericht){
+    $count_meals++;
+}
+
+// ANZAHL NEWSLETTER ANMELDUNGEN ZÄHLEN
+$file2 = fopen('./newsletter.txt', 'r');
+$count_registrations = -1;
+while (!feof($file2)) {
+    $line = fgets($file2);
+    $count_registrations++;
+}
+
 ?>
+
 <!DOCTYPE html>
 <!--
 - Praktikum DBWT. Autoren:
@@ -283,9 +328,15 @@ if($condition && isset($_POST['abgeschickt'])){
     <section id="zahlen">
         <h1>E-Mensa in Zahlen</h1>
         <div id="zahltext">
-            <p>x Besuche</p>
-            <p>y Anmeldungen zum <br> Newsletter</p>
-            <p>2 Speisen</p>
+        <p>
+            <?php echo $count_visits . " Besuche"; ?>
+        </p>
+        <p>
+            <?php echo $count_registrations . " Anmeldungen zum <br> Newsletter"; ?>
+        </p>
+        <p>
+            <?php echo $count_meals . " Speisen" ?>
+        </p>
         </div>
     </section>
     <section id="kontakt">
