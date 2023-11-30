@@ -5,9 +5,35 @@
  * Haider, Abbas, 3567272
  */
 
+// $link ist eine Variable vom Typ „Ressource“.
+// Es ist ein Handle für die Datenbank, der die aktive Verbindung
+// beinhaltet.
+$link=mysqli_connect("localhost", // Host der Datenbank
+    "root",                       // Benutzername zur Anmeldung
+    "1234",                       // Passwort
+    "emensawerbeseite",           // Auswahl der Datenbanken (bzw. des Schemas)
+    3307                              // optional port der Datenbank
+);
+
+// Ob eine Verbindung erfolgreich war, überprüft man mit
+if (!$link) {
+    echo "Verbindung fehlgeschlagen: " . mysqli_connect_error();
+    exit();
+}
+
+$link->set_charset("utf8");
+
+// SQL-Abfrage für das Einfügen eines neuen Eintrags
+$sql_insert = "INSERT INTO page_views (visit_timestamp) VALUES (CURRENT_TIMESTAMP)";
+
+// Die Abfrage ausführen
+if (!mysqli_query($link, $sql_insert)) {
+    echo "Fehler beim Hinzufügen des Eintrags: " . mysqli_error($link);
+}
+
+
 // AUFGABE 8
 include('gerichte.php');
-echo "Test";
 $schmutz = [
     1 => "rcpt.at",
     2 => "damnthespam.at",
@@ -121,11 +147,6 @@ while (!feof($file2)) {
 ?>
 
 <!DOCTYPE html>
-<!--
-- Praktikum DBWT. Autoren:
-- Yannik, Sinthern, 3570151
-- Haider, Abbas, 3567272
--->
 <html lang="zxx">
 <head>
     <meta charset="UTF-8">
@@ -208,7 +229,7 @@ while (!feof($file2)) {
             border-collapse: collapse; /*damit nicht doppelt umrandet*/
             border: 1px solid black;
             text-align: center;
-            margin-bottom: 60px;
+            margin-bottom: 20px;
         }
         #abschied { /* "Wir freuen uns auf Ihren Besuch!" zentrieren*/
             text-align: center;
@@ -309,14 +330,45 @@ while (!feof($file2)) {
                 <td>Bild</td>
             </tr>
             <?php
-            foreach($gerichte as $gericht){
+
+            // Gerichte Abfragen aus Datenbank
+            $sql_gerichte = "SELECT id, name ,preisintern, preisextern FROM gericht order by name limit 5";
+            $result_gerichte = mysqli_query($link, $sql_gerichte);
+            if (!$result_gerichte) {
+                echo "Fehler während der Abfrage:  ", mysqli_error($link);
+                exit();
+            }
+            $used_allergens = array();
+
+            // Die gerichte Zeile für Zeile durchlaufen
+            while ($row = mysqli_fetch_assoc($result_gerichte)) {
+
+                $current_id = $row['id'];
+                // Query gibt alle codes von den Allergenen zurück, die das jeweilige Gericht enthält
+                $sql_used_allergens = "SELECT * FROM gericht_hat_allergen WHERE gericht_id = '$current_id'";
+                // Speichern der Ergebnisse der Query
+                $result_used_allergens = mysqli_query($link, $sql_used_allergens);
+
+                // Namen des jeweiligen Gerichts ausgeben
                 echo '<tr>' .
-                    '<td>' . $gericht['name'] . '</td>' .
-                    '<td>' . $gericht['preisIntern'] . '</td>' .
-                    '<td>' . $gericht['preisExtern'] . '</td>' .
-                    '<td> <img src="img/' . $gericht['name'] . '.png" alt="' . $gericht['name'] .'" width="200" height="200"></td>' .
+                    '<td>' . $row['name'] . '<br>';
+
+                // Alle Allergene Zeile für Zeile durchlaufen
+                while ($allergen_row = mysqli_fetch_assoc($result_used_allergens)) {
+                    // alle allergene die vorkommen merken
+                    $used_allergens[] = $allergen_row['code'];
+                    echo '<sub><b>(', $allergen_row['code'], ')</b></sub> ';
+                }
+                // Das ganze While Konstrukt gehört zum gleichen <td> wie row['name']
+
+                echo '</td>' .
+
+                    '<td>' . $row['preisintern'] . '€' . '</td>' .
+                    '<td>' . $row['preisextern'] . '€' . '</td>' .
+                    '<td>', '<img src="./img/' . $row['id'] . '.png" width="200" height="200">' . '</td>' .
                     '</tr>';
             }
+
             ?>
             <tr>
                 <td>...</td>
@@ -324,21 +376,53 @@ while (!feof($file2)) {
                 <td>...</td>
             </tr>
         </table>
+        <?php
+
+        // aus dem array einen string machen, vorherige einträge durch ', ' trennen
+        $used_allergens = implode("', '", $used_allergens);
+        // query: distinct => dups entfernen
+        // nur die allergene, die auch in $used_allergens vorkommen
+        $sql_final_allergenes = "SELECT distinct code, name FROM allergen WHERE code IN ('$used_allergens') order by code";
+        $result_final_allergenes = mysqli_query($link, $sql_final_allergenes);
+        while ($row = mysqli_fetch_assoc($result_final_allergenes)) {
+            echo ' ' . $row['code'] . ": " . $row['name'];
+
+        }
+        ?>
+
+
     </section>
     <section id="zahlen">
         <h1>E-Mensa in Zahlen</h1>
         <div id="zahltext">
-        <p>
-            <?php echo $count_visits . " Besuche"; ?>
-        </p>
-        <p>
-            <?php echo $count_registrations . " Anmeldungen zum <br> Newsletter"; ?>
-        </p>
-        <p>
-            <?php echo $count_meals . " Speisen" ?>
-        </p>
+            <p>
+                <?php
+                //echo $count_visits . " Besuche";
+
+                // SQL Query für das Zählen der Seitenaufrufe bzw Zeilenanzahl in der Tabelle
+                $sql_count_visits= "SELECT COUNT(*) AS page_views_count FROM page_views";
+
+                // Die Abfrage ausführen
+                $result_sql_count_visits = mysqli_query($link, $sql_count_visits);
+                echo mysqli_fetch_assoc($result_sql_count_visits)['page_views_count'] . " Besuche";
+                ?>
+            </p>
+            <p>
+                <?php echo $count_registrations . " Anmeldungen zum <br> Newsletter"; ?>
+            </p>
+            <p>
+                <?php
+                //Anz Gerichte ausgeben
+                $sql_gerichte_anzahl = "SELECT COUNT(ID) AS 'gerichte_anzahl' FROM GERICHT";
+                $result_gerichte_anzahl = mysqli_query($link, $sql_gerichte_anzahl);
+                echo mysqli_fetch_assoc($result_gerichte_anzahl)['gerichte_anzahl'] . " Speisen";
+                ?>
+
+            </p>
         </div>
     </section>
+
+
     <section id="kontakt">
         <h1>Interesse geweckt? Wir informieren Sie!</h1>
         <form class="form" action="werbeseite.php" method="post">
@@ -375,8 +459,50 @@ while (!feof($file2)) {
             }?>
         </form>
     </section>
+
+
+
+    <section id="wunschgericht">
+        <h1>wunschgericht gefällig???? :))))))</h1>
+        <form class="form" action="wunschgericht.php" method="post">
+            <fieldset class="fieldform">
+                <div>
+                    <label for="name">Ihr Name:</label>
+                    <input type="text" id="name" name="vorname" placeholder="Vorname">
+                </div>
+                <div>
+                    <label for="email">Ihr Email:</label>
+                    <input type="text" id="email" name="email">
+                </div>
+                <div>
+                    <label for="lang">Newsletter bitte in:</label>
+                    <select id="lang" name="newsletter-sprache">
+                        <option value="deutsch">Deutsch</option>
+                        <option value="englisch">Englisch</option>
+                    </select>
+                </div>
+                <div class="break"></div>
+                <div id="datenschutzdiv">
+                    <span><input type="checkbox" name="datenschutz" value="akzeptiert"> Den Datenschutzbestimmungen stimme ich zu</span>
+                    <span><input type="submit" name="abgeschickt" value="Zum Newsletter anmelden"></span>
+                </div>
+            </fieldset>
+            <?php
+            if(isset($_POST['abgeschickt']) && $_POST['abgeschickt'] == "Zum Newsletter anmelden"){
+                if($condition){
+                    echo "<h3 style='color: green'>" . $status ."</h3>";
+                }
+                else{
+                    echo "<h3 style='color: red'>" . $status ."</h3>";
+                }
+            }?>
+        </form>
+    </section>
+
+
+
     <section id="wichtigFürUns">
-        <h1><br>Das ist uns wichtig</h1><br>
+        <h1>Das ist uns wichtig</h1><br>
         <ul>
             <li class="wichtig">Beste frische saisonale Zutaten</li>
             <li class="wichtig">Ausgewogene abwechslungsreiche Gerichte</li>
