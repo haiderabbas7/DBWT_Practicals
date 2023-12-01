@@ -303,6 +303,7 @@ while (!feof($file2)) {
             <li><a href="#zahlen">Zahlen</a></li>
             <li><a href="#kontakt">Kontakt</a></li>
             <li><a href="#wichtigFürUns">Wichtig für uns</a></li>
+            <li><a href="#wunschgericht">Ihr Wunschgericht</a></li>
         </ul>
     </nav>
 </header>
@@ -464,7 +465,7 @@ while (!feof($file2)) {
 
 
     <section id="wunschgericht">
-        <h1>wunschgericht gefällig???? :))))))</h1>
+        <h1>Haben Sie Vorschläge für ein Wunschgericht?</h1>
         <form class="form" action="wunschgericht.php" method="post">
             <fieldset class="fieldform">
                 <div class="zuIhnen">

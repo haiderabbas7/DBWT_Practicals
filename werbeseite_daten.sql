@@ -181,9 +181,12 @@ CREATE TABLE page_views(
 
 UPDATE gericht SET id = 2 WHERE id = 21;
 
+SELECT * FROM wunschgericht LIMIT 6 OFFSET 1;
 
-
-
+SELECT e.ersteller_id, e.name, e.email, COUNT(w.nummer) AS anzahl_wuensche
+FROM ersteller e LEFT JOIN wunschgericht w ON e.ersteller_id = w.eingetragen_von_ersteller_id
+WHERE w.nummer > 0
+GROUP BY e.ersteller_id, e.name, e.email;
 
 
 
