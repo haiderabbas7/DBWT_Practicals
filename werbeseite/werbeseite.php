@@ -151,6 +151,7 @@ while (!feof($file2)) {
 <head>
     <meta charset="UTF-8">
     <title>Ihre E-Mensa</title>
+    <link rel="icon" type="image/x-icon" href="georghoever.jpeg">
     <style>
         * { /*wird erstmal übergeordnet auf alles angewendet*/
             margin: 0; /*default-werte für margin und padding ist immer 0, muss daher immer selber gesetzt werden*/
@@ -466,36 +467,25 @@ while (!feof($file2)) {
         <h1>wunschgericht gefällig???? :))))))</h1>
         <form class="form" action="wunschgericht.php" method="post">
             <fieldset class="fieldform">
-                <div>
-                    <label for="name">Ihr Name:</label>
-                    <input type="text" id="name" name="vorname" placeholder="Vorname">
+                <div class="zuIhnen">
+                    <label for="wunschgericht_name">Ihr Name:</label>
+                    <input type="text" id="wunschgericht_name" name="wunschgericht_name" placeholder="Kein Name = anonym"><br>
                 </div>
-                <div>
-                    <label for="email">Ihr Email:</label>
-                    <input type="text" id="email" name="email">
+                <div class="zuIhnen">
+                    <label for="wunschgericht_email">Ihre Email:</label>
+                    <input type="text" id="wunschgericht_email" name="wunschgericht_email" placeholder="max@mustermann.de" required><br>
                 </div>
-                <div>
-                    <label for="lang">Newsletter bitte in:</label>
-                    <select id="lang" name="newsletter-sprache">
-                        <option value="deutsch">Deutsch</option>
-                        <option value="englisch">Englisch</option>
-                    </select>
+
+                <div class="wunschgericht">
+                    <label for="wunschgericht_titel">Name des Wunschgerichts:</label>
+                    <input type="text" id="wunschgericht_titel" name="wunschgericht_titel" required>
                 </div>
-                <div class="break"></div>
-                <div id="datenschutzdiv">
-                    <span><input type="checkbox" name="datenschutz" value="akzeptiert"> Den Datenschutzbestimmungen stimme ich zu</span>
-                    <span><input type="submit" name="abgeschickt" value="Zum Newsletter anmelden"></span>
+                <div class="wunschgericht">
+                    <label for="wunschgericht_beschreibung">Eine Beschreibung/Anleitung:</label>
+                    <textarea id="wunschgericht_beschreibung" name="wunschgericht_beschreibung" rows="4" cols="50" required></textarea>
+                    <span><input type="submit" name="wunschgericht_abgeschickt" value="Wunsch abschicken"></span>
                 </div>
             </fieldset>
-            <?php
-            if(isset($_POST['abgeschickt']) && $_POST['abgeschickt'] == "Zum Newsletter anmelden"){
-                if($condition){
-                    echo "<h3 style='color: green'>" . $status ."</h3>";
-                }
-                else{
-                    echo "<h3 style='color: red'>" . $status ."</h3>";
-                }
-            }?>
         </form>
     </section>
 

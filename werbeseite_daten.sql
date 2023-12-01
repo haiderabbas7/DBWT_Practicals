@@ -161,7 +161,7 @@ INSERT INTO gericht_hat_kategorie (kategorie_id, gericht_id) VALUES (3, 21);
 
 CREATE TABLE ersteller(
                           ersteller_id INT8 AUTO_INCREMENT PRIMARY KEY ,
-                          name VARCHAR(80) NOT NULL UNIQUE,
+                          name VARCHAR(80) NOT NULL,
                           email VARCHAR(80) NOT NULL
 );
 
@@ -169,7 +169,7 @@ CREATE TABLE wunschgericht(
                               nummer INT8 AUTO_INCREMENT PRIMARY KEY,
                               eingetragen_von_ersteller_id INT8 NOT NULL,
                               FOREIGN KEY (eingetragen_von_ersteller_id) REFERENCES ersteller(ersteller_id),
-                              name VARCHAR(80) DEFAULT 'anonym' NOT NULL UNIQUE,
+                              name VARCHAR(80) DEFAULT 'anonym' NOT NULL,
                               erstellungsdatum DATETIME NOT NULL,
                               beschreibung VARCHAR(300) NOT NULL
 );
