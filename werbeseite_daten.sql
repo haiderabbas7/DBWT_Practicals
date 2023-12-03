@@ -188,13 +188,64 @@ FROM ersteller e LEFT JOIN wunschgericht w ON e.ersteller_id = w.eingetragen_von
 WHERE w.nummer > 0
 GROUP BY e.ersteller_id, e.name, e.email;
 
+#Aufgabe 4.1
+ALTER TABLE gericht_hat_kategorie ADD UNIQUE (gericht_id,kategorie_id);
+SELECT * FROM gericht_hat_kategorie;
+
+#Aufgabe 4.2
+CREATE INDEX index_name ON gericht(name);
+
+#Aufgabe 4.3
+#SET FOREIGN_KEY_CHECKS=0; weil ich zu faul war das problem richtig zu lösen, ist ne idee von stackoverflow
+#restlicher code unter den ALTERs ist zum Testen: Füge einen eintrag mit id 21 ein und lösche ihn aus gericht
+#danach sollten die dazugehörigen einträge in den anderen zwei tabellen gelöscht werden
+SET FOREIGN_KEY_CHECKS=0;
+
+ALTER TABLE gericht_hat_kategorie
+    ADD CONSTRAINT fk_gericht_hat_kategorie_gericht_delete_cascade
+        FOREIGN KEY (gericht_id) REFERENCES gericht(id) ON DELETE CASCADE;
+
+ALTER TABLE gericht_hat_allergen
+    ADD CONSTRAINT fk_gericht_hat_allergen_gericht_delete_cascade
+        FOREIGN KEY (gericht_id) REFERENCES gericht(id) ON DELETE CASCADE;
+
+SET FOREIGN_KEY_CHECKS=1;
+
+INSERT INTO gericht (id, name, beschreibung, erfasst_am, vegan, vegetarisch, preisintern, preisextern)
+VALUES (21,'reis', 'mmm yummy', '2023-11-17', 0, 0, 13.37, 13.37);
+
+INSERT INTO gericht_hat_allergen(code, gericht_id)
+VALUES ('h3', 21);
+
+INSERT INTO gericht_hat_kategorie(kategorie_id, gericht_id)
+VALUES (3, 21);
+
+DELETE FROM gericht WHERE id = 21;
 
 
+#Aufgabe 4.4, bei dem DELETE ganz unten muss ein Fehler auftreten
+ALTER TABLE gericht_hat_kategorie
+    ADD CONSTRAINT fk_gericht_hat_kategorie_kategorie_delete_no_action
+        FOREIGN KEY (kategorie_id) REFERENCES kategorie(id) ON DELETE NO ACTION;
 
+ALTER TABLE kategorie
+    ADD CONSTRAINT fk_eltern_id_id_delete_no_action
+        FOREIGN KEY (eltern_id) REFERENCES kategorie(id) ON DELETE NO ACTION;
 
+DELETE FROM kategorie WHERE id = 3;
 
+#Aufgabe 4.5
+ALTER TABLE gericht_hat_allergen
+    ADD CONSTRAINT fk_gericht_hat_allergen_gericht_update_cascade
+        FOREIGN KEY (code) REFERENCES allergen(code) ON UPDATE CASCADE;
 
+UPDATE allergen SET code = 'h33' WHERE code = 'h3';
 
+UPDATE allergen SET code = 'h3' WHERE code = 'h33';
+
+#Aufgabe 4.6
+ALTER TABLE gericht_hat_kategorie
+    ADD PRIMARY KEY (gericht_id, kategorie_id);
 
 
 
