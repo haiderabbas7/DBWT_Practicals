@@ -7,7 +7,9 @@
  */
 
 return array(
+
     '/'             => "HomeController@index",
+    '/home'         => "HomeController@home",
     "/demo"         => "DemoController@demo",
     '/dbconnect'    => 'DemoController@dbconnect',
     '/debug'        => 'HomeController@debug',

@@ -1,14 +1,10 @@
 <?php
+require_once($_SERVER['DOCUMENT_ROOT'].'/../models/gericht.php');
 require_once($_SERVER['DOCUMENT_ROOT'].'/../models/kategorie.php');
 
 class ExampleController
 {
     public function m4_6a_queryparameter(RequestData $rd) {
-        /*
-           Wenn Sie hier landen:
-           bearbeiten Sie diese Action,
-           so dass Sie die Aufgabe löst
-        */
 
         return view('notimplemented', [
             'request'=>$rd,

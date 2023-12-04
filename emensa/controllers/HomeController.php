@@ -1,10 +1,15 @@
 <?php
 require_once($_SERVER['DOCUMENT_ROOT'].'/../models/gericht.php');
+require_once($_SERVER['DOCUMENT_ROOT'].'/../models/gericht.php');
 
 /* Datei: controllers/HomeController.php */
 class HomeController
 {
     public function index(RequestData $request) {
+        return view('index', ['rd' => $request ]);
+    }
+
+    public function home(RequestData $request) {
         return view('home', ['rd' => $request ]);
     }
     

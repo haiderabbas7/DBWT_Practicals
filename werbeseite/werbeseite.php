@@ -33,7 +33,6 @@ if (!mysqli_query($link, $sql_insert)) {
 
 
 // AUFGABE 8
-include('gerichte.php');
 $schmutz = [
     1 => "rcpt.at",
     2 => "damnthespam.at",
@@ -102,40 +101,6 @@ if($condition && isset($_POST['abgeschickt'])){
     $status = "Alle Daten erfolgreich erfasst!";
 }
 
-
-// AUFGABE 9
-
-// JEDEN BESUCH SPEICHERN
-// accesslog.txt öffnen, writing only
-$file = fopen('./accesslog.txt', 'a');
-// Aktuelle Zeit in timestamp speichern
-$timestamp = time();
-// date.month.Year- Hour.minutes
-// zeit aus timestamp wird nach diesem format formatiert
-$datum = date("d.m.Y- H:i", $timestamp);
-fwrite($file, "Date: " . $datum . " ");
-fwrite($file, "User-Agent: " . $_SERVER["HTTP_USER_AGENT"] . " ");
-fwrite($file, "IP: " . $_SERVER['REMOTE_ADDR'] . "\n");
-fclose($file);
-
-// ANZAHL BESUCHE ZÄHLEN
-// accesslog.txt öffnen, reading only
-$file = fopen('accesslog.txt', 'r');
-// es kommt immer visits+1 raus, wenn man bei 0 anfängt
-// nochmal nachgucken warum immer eins zu viel gezählt wird lulw
-$count_visits = -1;
-// Solange man noch nicht am Ende des files angekommen ist
-while (!feof($file)) {
-    $line = fgets($file);
-    $count_visits++;
-}
-
-// ANZAHL GERICHTE ZÄHLEN
-$count_meals = 0;
-foreach($gerichte as $gericht){
-    $count_meals++;
-}
-
 // ANZAHL NEWSLETTER ANMELDUNGEN ZÄHLEN
 $file2 = fopen('./newsletter.txt', 'r');
 $count_registrations = -1;
@@ -151,7 +116,6 @@ while (!feof($file2)) {
 <head>
     <meta charset="UTF-8">
     <title>Ihre E-Mensa</title>
-    <link rel="icon" type="image/x-icon" href="georghoever.jpeg">
     <style>
         * { /*wird erstmal übergeordnet auf alles angewendet*/
             margin: 0; /*default-werte für margin und padding ist immer 0, muss daher immer selber gesetzt werden*/
@@ -295,7 +259,7 @@ while (!feof($file2)) {
 </head>
 <body>
 <header>
-    <img src="georghoever.jpeg" alt="E-Mensa Logo">
+    <img src="img/georghoever.jpeg" alt="E-Mensa Logo">
     <nav>
         <ul>
             <li><a href="#ankündigung">Ankündigung</a></li>
@@ -308,7 +272,7 @@ while (!feof($file2)) {
     </nav>
 </header>
 <main>
-    <img src="mensabild.jpg" alt="Banner">
+    <img src="img/mensabild.jpg" alt="Banner">
     <section id="ankündigung">
         <h1>Bald gibt es Essen auch online ;)</h1>
         <p id="boxaroundp">
@@ -321,9 +285,6 @@ while (!feof($file2)) {
     </section>
     <section id="speisen">
         <h1>Köstlichkeiten, die Sie erwarten</h1>
-        <!-- tr := "table row (Tabellenzeile)", Zeile kann th und td Elemente enthalten
-        th := "table header (Tabellenüberschrift)"
-        td := "table data (Tabellendaten)" -->
         <table>
             <tr>
                 <td></td>
@@ -391,15 +352,13 @@ while (!feof($file2)) {
 
         }
         ?>
-
-
     </section>
+
     <section id="zahlen">
         <h1>E-Mensa in Zahlen</h1>
         <div id="zahltext">
             <p>
                 <?php
-                //echo $count_visits . " Besuche";
 
                 // SQL Query für das Zählen der Seitenaufrufe bzw Zeilenanzahl in der Tabelle
                 $sql_count_visits= "SELECT COUNT(*) AS page_views_count FROM page_views";
