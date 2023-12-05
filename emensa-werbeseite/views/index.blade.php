@@ -37,8 +37,41 @@
             Lorem ipsum dolor sit amet consectetur, adipisicing elit. Debitis tempora eligendi aliquam architecto sunt sed, ratione quos doloremque deserunt omnis accusamus quisquam, corrupti ex dicta? Neque nam maiores esse explicabo!
         </p>
     </section>
+    <section id="speisen">
+        <h1>Köstlichkeiten, die Sie erwarten</h1>
+        <table>
+            <tr>
+                <td></td>
+                <td>Preis intern</td>
+                <td>Preis extern</td>
+                <td>Bild</td>
+            </tr>
+            @for($i = 0; $i < count($gerichte_sql); $i++)
+                <tr>
+                    <td>{{ $gerichte_sql[$i]['name'] }}<br>
+                        @foreach($used_allergens[$i] as $used_allergen)
+                            <sub><b>({{$used_allergen['code']}})</b></sub>
+                        @endforeach
+                    </td>
+                    <td>{{ $gerichte_sql[$i]['preisintern'] }}€</td>
+                    <td>{{ $gerichte_sql[$i]['preisextern'] }}€</td>
+                    <td><img src="./img/{{ $gerichte_sql[$i]['id'] }}.png" alt="food_img" width="200" height="200"></td>
+                </tr>
+            @endfor
+
+            <tr>
+                <td>...</td>
+                <td>...</td>
+                <td>...</td>
+                <td>...</td>
+            </tr>
+        </table>
 
 
+
+
+
+    </section>
 
     <section id="wichtigFürUns">
         <h1>Das ist uns wichtig</h1><br>
@@ -55,9 +88,7 @@
 
 
 @section('footer')
-    <ul>
         <li><p> &copy; E-Mensa GmbH</p></li>
         <li><p> Haider Abbas und Yannik Sinthern</p></li>
         <li><a href="#impressum">Impressum</a></li>
-    </ul>
 @endsection

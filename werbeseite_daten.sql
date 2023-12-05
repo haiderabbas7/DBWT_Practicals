@@ -188,6 +188,11 @@ FROM ersteller e LEFT JOIN wunschgericht w ON e.ersteller_id = w.eingetragen_von
 WHERE w.nummer > 0
 GROUP BY e.ersteller_id, e.name, e.email;
 
+
+
+
+
+
 #Aufgabe 4.1
 ALTER TABLE gericht_hat_kategorie ADD UNIQUE (gericht_id,kategorie_id);
 SELECT * FROM gericht_hat_kategorie;

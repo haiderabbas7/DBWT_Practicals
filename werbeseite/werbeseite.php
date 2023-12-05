@@ -283,6 +283,13 @@ while (!feof($file2)) {
             Lorem ipsum dolor sit amet consectetur, adipisicing elit. Debitis tempora eligendi aliquam architecto sunt sed, ratione quos doloremque deserunt omnis accusamus quisquam, corrupti ex dicta? Neque nam maiores esse explicabo!
         </p>
     </section>
+
+
+
+
+
+
+
     <section id="speisen">
         <h1>Köstlichkeiten, die Sie erwarten</h1>
         <table>
@@ -322,7 +329,6 @@ while (!feof($file2)) {
                     $used_allergens[] = $allergen_row['code'];
                     echo '<sub><b>(', $allergen_row['code'], ')</b></sub> ';
                 }
-                // Das ganze While Konstrukt gehört zum gleichen <td> wie row['name']
 
                 echo '</td>' .
 
@@ -353,6 +359,12 @@ while (!feof($file2)) {
         }
         ?>
     </section>
+
+
+
+
+
+
 
     <section id="zahlen">
         <h1>E-Mensa in Zahlen</h1>
