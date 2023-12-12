@@ -22,3 +22,4 @@ function db_allergen_select_used_allergen($current_id){
         return $data;
     }
 }
+

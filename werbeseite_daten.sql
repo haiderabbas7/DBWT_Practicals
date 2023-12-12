@@ -181,16 +181,28 @@ CREATE TABLE page_views(
 
 UPDATE gericht SET id = 2 WHERE id = 21;
 
-SELECT * FROM wunschgericht LIMIT 6 OFFSET 1;
+#SELECT * FROM wunschgericht LIMIT 6 OFFSET 1;
 
-SELECT e.ersteller_id, e.name, e.email, COUNT(w.nummer) AS anzahl_wuensche
-FROM ersteller e LEFT JOIN wunschgericht w ON e.ersteller_id = w.eingetragen_von_ersteller_id
-WHERE w.nummer > 0
-GROUP BY e.ersteller_id, e.name, e.email;
-
-
+#SELECT e.ersteller_id, e.name, e.email, COUNT(w.nummer) AS anzahl_wuensche
+#FROM ersteller e LEFT JOIN wunschgericht w ON e.ersteller_id = w.eingetragen_von_ersteller_id
+#WHERE w.nummer > 0
+#GROUP BY e.ersteller_id, e.name, e.email;
 
 
+CREATE TABLE benutzer(
+    id INT8 PRIMARY KEY,
+    name VARCHAR(200) NOT NULL,
+    email VARCHAR(100) NOT NULL UNIQUE ,
+    passwort VARCHAR(200) NOT NULL,
+    admin BOOLEAN NOT NULL,
+    anzahlfehler INT NOT NULL,
+    anzahlanmeldungen INT NOT NULL,
+    letzteanmeldung DATETIME,
+    letzterfehler DATETIME
+);
+
+INSERT INTO benutzer (id, name, email, passwort, admin, anzahlfehler, anzahlanmeldungen, letzteanmeldung, letzterfehler)
+VALUES (1, 'admin', 'admin@emensa.example', '72924ce2ad839c265c32405d57278fcc36d20112', true, 0, 0, NULL, NULL);
 
 
 #Aufgabe 4.1
@@ -216,16 +228,16 @@ ALTER TABLE gericht_hat_allergen
 
 SET FOREIGN_KEY_CHECKS=1;
 
-INSERT INTO gericht (id, name, beschreibung, erfasst_am, vegan, vegetarisch, preisintern, preisextern)
-VALUES (21,'reis', 'mmm yummy', '2023-11-17', 0, 0, 13.37, 13.37);
+#INSERT INTO gericht (id, name, beschreibung, erfasst_am, vegan, vegetarisch, preisintern, preisextern)
+#VALUES (21,'reis', 'mmm yummy', '2023-11-17', 0, 0, 13.37, 13.37);
 
-INSERT INTO gericht_hat_allergen(code, gericht_id)
-VALUES ('h3', 21);
+#INSERT INTO gericht_hat_allergen(code, gericht_id)
+#VALUES ('h3', 21);
 
-INSERT INTO gericht_hat_kategorie(kategorie_id, gericht_id)
-VALUES (3, 21);
+#INSERT INTO gericht_hat_kategorie(kategorie_id, gericht_id)
+#VALUES (3, 21);
 
-DELETE FROM gericht WHERE id = 21;
+#DELETE FROM gericht WHERE id = 21;
 
 
 #Aufgabe 4.4, bei dem DELETE ganz unten muss ein Fehler auftreten
@@ -237,16 +249,16 @@ ALTER TABLE kategorie
     ADD CONSTRAINT fk_eltern_id_id_delete_no_action
         FOREIGN KEY (eltern_id) REFERENCES kategorie(id) ON DELETE NO ACTION;
 
-DELETE FROM kategorie WHERE id = 3;
+#DELETE FROM kategorie WHERE id = 3;
 
 #Aufgabe 4.5
 ALTER TABLE gericht_hat_allergen
     ADD CONSTRAINT fk_gericht_hat_allergen_gericht_update_cascade
         FOREIGN KEY (code) REFERENCES allergen(code) ON UPDATE CASCADE;
 
-UPDATE allergen SET code = 'h33' WHERE code = 'h3';
+#UPDATE allergen SET code = 'h33' WHERE code = 'h3';
 
-UPDATE allergen SET code = 'h3' WHERE code = 'h33';
+#UPDATE allergen SET code = 'h3' WHERE code = 'h33';
 
 #Aufgabe 4.6
 ALTER TABLE gericht_hat_kategorie

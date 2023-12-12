@@ -17,6 +17,7 @@
             @yield('nav')
         </ul>
     </nav>
+    @yield('anmeldung')
 </header>
 
 

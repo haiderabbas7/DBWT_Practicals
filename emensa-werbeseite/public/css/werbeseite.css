@@ -50,6 +50,38 @@ nav ul li { /*abstand zwischen elementen der navleiste auf auto*/
     margin-left: auto;
     margin-right: auto;
 }
+#anmeldung-box {
+    display: flex;
+    align-items: center; /* Center the content vertically */
+    justify-content: center; /* Center the content horizontally */
+    border: darkgray 3px solid;
+    padding: 10px;
+    margin-left: 50px;
+    margin-right: 10px;
+    width: 18.7%;
+}
+
+#anmeldung-box p {
+    margin: 0;
+    text-align: center; /* Center the text inside the box */
+}
+
+#anmeldung-box p span {
+    color: #6BD2CE;
+}
+#anmeldung-form {
+    font-size: 20px; /* Adjust the overall form font size */
+}
+
+#anmeldung-form label {
+    font-size: 100%; /* Adjust label font size */
+}
+
+#anmeldung-form input, #anmeldung-form button {
+    font-size: 120%; /* Adjust input and button font size */
+}
+
+
 main {
     width: 1000px; /*width wie nav leiste*/
     height: fit-content;

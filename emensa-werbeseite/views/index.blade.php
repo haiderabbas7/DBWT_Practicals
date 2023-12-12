@@ -24,6 +24,16 @@
     <li><a href="#wunschgericht">Ihr Wunschgericht</a></li>
 @endsection
 
+@section('anmeldung')
+    <div id="anmeldung-box">
+        @if (!isset($_SESSION['login_ok']) || $_SESSION['login_ok'] == false)
+            <a href="/anmeldung">Anmelden</a>
+        @elseif (isset($_SESSION['login_ok']) && $_SESSION['login_ok'] == true)
+            <p>Angemeldet als:  <span style="margin-right: 15px">{{ $_SESSION['user_name'] }}</span></p>
+            <a href="/abmeldung">Abmelden</a>
+        @endif
+    </div>
+@endsection
 
 @section('main')
     <img src="img/mensabild.jpg" alt="Banner">
@@ -66,11 +76,6 @@
                 <td>...</td>
             </tr>
         </table>
-
-
-
-
-
     </section>
 
     <section id="wichtigFürUns">

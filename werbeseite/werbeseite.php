@@ -455,7 +455,7 @@ while (!feof($file2)) {
                 <div class="wunschgericht">
                     <label for="wunschgericht_beschreibung">Eine Beschreibung/Anleitung:</label>
                     <textarea id="wunschgericht_beschreibung" name="wunschgericht_beschreibung" rows="4" cols="50" required></textarea>
-                    <span><input type="submit" name="wunschgericht_abgeschickt" value="Wunsch abschicken"></span>
+                    <span><input type="submit" name="wunschgericht_abgeschickt" value="abschicken"></span>
                 </div>
             </fieldset>
         </form>

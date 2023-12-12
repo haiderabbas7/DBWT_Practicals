@@ -1,0 +1,46 @@
+<?php $_shouldextend[1]=1; ?>
+
+<?php $this->startSection('title'); ?>
+ Anmeldung
+<?php $this->stopSection(); ?>
+
+<?php $this->startPush('css'); ?>
+ <?php include('css/werbeseite.css') ?>
+<?php $this->stopPush(); ?>
+
+<?php $this->startSection('header'); ?>
+ <img src="img/georghoever.jpeg" alt="E-Mensa Logo">
+<?php $this->stopSection(); ?>
+
+<?php $this->startSection('nav'); ?>
+<?php $this->stopSection(); ?>
+
+<?php $this->startSection('main'); ?>
+ <img src="img/mensabild.jpg" alt="Banner">
+
+ <h1>Bitte anmelden</h1>
+
+ <form id="anmeldung-form" action="/anmeldung_verifizieren" method="post">
+ <label for="anmeldung_email">Ihre Email:</label><br>
+ <input type="email" id="anmeldung_email" name="anmeldung_email" required><br><br>
+
+ <label for="anmeldung_passwort">Ihr Passwort:</label><br>
+ <input type="password" id="anmeldung_passwort" name="anmeldung_passwort" required><br><br>
+
+ <button type="submit">Anmelden</button><br><br>
+ </form>
+
+ <?php if(isset($_SESSION['login_fehler'])): ?>
+ <?php if($_SESSION['login_fehler'] == true): ?>
+ <p style="color: red; font-size: 18px; font-weight: bold">Bitte überprüfen Sie ihr Email oder Passwort!</p>
+ <?php endif; ?>
+ <?php endif; ?>
+<?php $this->stopSection(); ?>
+
+<?php $this->startSection('footer'); ?>
+ <li><p> &copy; E-Mensa GmbH</p></li>
+ <li><p> Haider Abbas und Yannik Sinthern</p></li>
+ <li><a href="#impressum">Impressum</a></li>
+<?php $this->stopSection(); ?>
+
+<?php if (isset($_shouldextend[1])) { echo $this->runChild("layouts.layout_werbeseite"); } ?>
