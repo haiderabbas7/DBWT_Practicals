@@ -140,9 +140,9 @@ SELECT name, erfasst_am FROM gericht;
 
 SELECT name AS Gerichtname, erfasst_am FROM gericht ORDER BY Gerichtname DESC;
 
-SELECT name, beschreibung FROM gericht ORDER BY name ASC LIMIT 5;
+SELECT name, beschreibung FROM gericht ORDER BY name LIMIT 5;
 
-SELECT name, beschreibung FROM gericht ORDER BY name ASC LIMIT 10 OFFSET 5;
+SELECT name, beschreibung FROM gericht ORDER BY name LIMIT 10 OFFSET 5;
 
 SELECT DISTINCT typ FROM allergen;
 
@@ -203,6 +203,9 @@ CREATE TABLE benutzer(
 
 INSERT INTO benutzer (id, name, email, passwort, admin, anzahlfehler, anzahlanmeldungen, letzteanmeldung, letzterfehler)
 VALUES (1, 'admin', 'admin@emensa.example', '72924ce2ad839c265c32405d57278fcc36d20112', true, 0, 0, NULL, NULL);
+
+INSERT INTO benutzer (id, name, email, passwort, admin, anzahlfehler, anzahlanmeldungen, letzteanmeldung, letzterfehler)
+VALUES (2, 'ferrari', 'ferrari@fh-aachen.de', 'aaafe076c3215d5117552decf4c2132b5fa6a5be', false, 0, 0, NULL, NULL);
 
 
 #Aufgabe 4.1
