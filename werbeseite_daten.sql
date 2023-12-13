@@ -207,6 +207,25 @@ VALUES (1, 'admin', 'admin@emensa.example', '72924ce2ad839c265c32405d57278fcc36d
 INSERT INTO benutzer (id, name, email, passwort, admin, anzahlfehler, anzahlanmeldungen, letzteanmeldung, letzterfehler)
 VALUES (2, 'ferrari', 'ferrari@fh-aachen.de', 'aaafe076c3215d5117552decf4c2132b5fa6a5be', false, 0, 0, NULL, NULL);
 
+ALTER TABLE gericht ADD COLUMN bildname VARCHAR(200) DEFAULT NULL;
+
+UPDATE gericht SET bildname = CONCAT(id, '.jpg');
+
+UPDATE gericht SET bildname = '1.jpg' WHERE id = 1;
+UPDATE gericht SET bildname = '3.jpg' WHERE id = 3;
+UPDATE gericht SET bildname = '4.jpg' WHERE id = 4;
+UPDATE gericht SET bildname = '6.jpg' WHERE id = 6;
+UPDATE gericht SET bildname = '9.jpg' WHERE id = 1;
+UPDATE gericht SET bildname = '10.jpg' WHERE id = 10;
+UPDATE gericht SET bildname = '11.jpg' WHERE id = 11;
+UPDATE gericht SET bildname = '12.jpg' WHERE id = 12;
+UPDATE gericht SET bildname = '13.jpg' WHERE id = 13;
+UPDATE gericht SET bildname = '15.jpg' WHERE id = 15;
+UPDATE gericht SET bildname = '17.jpg' WHERE id = 17;
+UPDATE gericht SET bildname = '19.jpg' WHERE id = 19;
+UPDATE gericht SET bildname = '20.jpg' WHERE id = 20;
+
+
 
 #Aufgabe 4.1
 ALTER TABLE gericht_hat_kategorie ADD UNIQUE (gericht_id,kategorie_id);

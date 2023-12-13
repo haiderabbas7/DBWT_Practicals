@@ -21,13 +21,16 @@ class WerbeseiteController
 
         $gerichte_sql = db_gericht_limit_5();
         $used_allergens = array();
+        $bildernamen = array();
         foreach ($gerichte_sql as $gericht){
             $current_id = $gericht['id'];
             $used_allergens[] = db_allergen_select_used_allergen($current_id);
+            $bildernamen[] = db_get_bildname($current_id);
         }
         return view('index',
             ['rd' => $request,
              'gerichte_sql' => $gerichte_sql,
-             'used_allergens' => $used_allergens]);
+             'used_allergens' => $used_allergens,
+             'bildernamen' => $bildernamen]);
     }
 }
