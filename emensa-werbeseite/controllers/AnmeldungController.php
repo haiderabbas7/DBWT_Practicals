@@ -33,12 +33,20 @@ class AnmeldungController
             $user_id = db_get_id($email, $password, $link);
             db_increment_anzahl_anmeldungen($user_id, $link);
             db_set_letzteanmeldung($user_id, $link);
+
+            $logger = logger('main');
+            $logger->info('User ' . $_SESSION['user_name'] . ' hat sich erfolgreich angemeldet.');
+
             $target = "/";
         }
         else{
             $_SESSION['login_fehler'] = true;
             $_SESSION['login_ok'] = false;
             db_set_letzterfehler($email, $link);
+
+            $logger = logger('main');
+            $logger->warning('Fehlgeschlagene Anmeldung mit der Email ' . $email);
+
             $target = "/anmeldung";
         }
         mysqli_commit($link);
@@ -49,6 +57,8 @@ class AnmeldungController
 
 
     public function abmeldung(){
+        $logger = logger('main');
+        $logger->info('User ' . $_SESSION['user_name'] . ' hat sich erfolgreich abgemeldet.');
         unset($_SESSION['user_name']);
         $_SESSION['login_ok'] = false;
         $_SESSION['login_fehler'] = false;
