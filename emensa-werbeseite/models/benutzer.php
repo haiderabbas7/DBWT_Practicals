@@ -45,3 +45,8 @@ function db_set_letzterfehler($email, $link){
     $sql = "UPDATE benutzer SET letzterfehler = NOW() WHERE email = '$email'";
     mysqli_query($link, $sql);
 }
+
+function db_increment_anzahl_anmeldungen_procedure($id, $link){
+    $sql = "CALL inkrementiere_anzahlanmeldungen('$id')";
+    mysqli_query($link, $sql);
+}

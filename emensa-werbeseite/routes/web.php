@@ -6,8 +6,6 @@
  *     /demo/subpage will not work as expected
  */
 
-session_start();
-
 return array(
     '/'                         => "WerbeseiteController@index",
     '/debug'                    => 'HomeController@debug',

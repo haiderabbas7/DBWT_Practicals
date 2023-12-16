@@ -24,7 +24,7 @@ class WerbeseiteController
         //mysqli_begin_transaction($link);
         //var_dump(  db_get_id("admin@emensa.example", "72924ce2ad839c265c32405d57278fcc36d20112", $link));
 
-        $logger = logger('main');
+        $logger = FrontController::logger('main');
         $logger->info('Zugriff auf die Hauptseite');
 
         $gerichte_sql = db_gericht_limit_5();

@@ -5,8 +5,15 @@ const CONFIG_WEBROUTES = "/../routes/web.php"; // like in laravel
 const CONFIG_DB = "/../config/db.php";
 const ROUTER_VERSION = '0.8.2';
 
+session_start();
+
 assert_php_version('8.2.0');
 assert_path();
+
+use Monolog\Level;
+use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
+
 
 try {
     if (!file_exists(realpath($_SERVER['DOCUMENT_ROOT'] . "/../vendor/autoload.php"))) {
@@ -91,6 +98,13 @@ class RequestData
 
 class FrontController
 {
+
+    public static function logger($logFileName = 'default_log'): object{
+        $logger = new Logger('a');
+        $logFilePath = __DIR__ . '/../storage/logs/' . $logFileName . '.log';
+        $logger->pushHandler(new StreamHandler($logFilePath));
+        return $logger;
+    }
 
     public static function handleRequest($url, $method = 'GET', $verbosity = 0, $configPath = CONFIG_WEBROUTES)
     {

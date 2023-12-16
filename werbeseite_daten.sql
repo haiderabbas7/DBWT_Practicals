@@ -190,26 +190,24 @@ UPDATE gericht SET id = 2 WHERE id = 21;
 
 
 CREATE TABLE benutzer(
-    id INT8 PRIMARY KEY,
+    id INT8 PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(200) NOT NULL,
     email VARCHAR(100) NOT NULL UNIQUE ,
     passwort VARCHAR(200) NOT NULL,
-    admin BOOLEAN NOT NULL,
-    anzahlfehler INT NOT NULL,
+    admin BOOLEAN NOT NULL DEFAULT false,
+    anzahlfehler INT NOT NULL DEFAULT 0,
     anzahlanmeldungen INT NOT NULL,
     letzteanmeldung DATETIME,
     letzterfehler DATETIME
 );
 
-INSERT INTO benutzer (id, name, email, passwort, admin, anzahlfehler, anzahlanmeldungen, letzteanmeldung, letzterfehler)
-VALUES (1, 'admin', 'admin@emensa.example', '72924ce2ad839c265c32405d57278fcc36d20112', true, 0, 0, NULL, NULL);
+INSERT INTO benutzer (name, email, passwort, admin, anzahlfehler, anzahlanmeldungen, letzteanmeldung, letzterfehler)
+VALUES ('admin', 'admin@emensa.example', '72924ce2ad839c265c32405d57278fcc36d20112', true, 0, 0, NULL, NULL);
 
-INSERT INTO benutzer (id, name, email, passwort, admin, anzahlfehler, anzahlanmeldungen, letzteanmeldung, letzterfehler)
-VALUES (2, 'ferrari', 'ferrari@fh-aachen.de', 'aaafe076c3215d5117552decf4c2132b5fa6a5be', false, 0, 0, NULL, NULL);
+INSERT INTO benutzer (name, email, passwort, admin, anzahlfehler, anzahlanmeldungen, letzteanmeldung, letzterfehler)
+VALUES ('ferrari', 'ferrari@fh-aachen.de', 'aaafe076c3215d5117552decf4c2132b5fa6a5be', false, 0, 0, NULL, NULL);
 
 ALTER TABLE gericht ADD COLUMN bildname VARCHAR(200) DEFAULT NULL;
-
-UPDATE gericht SET bildname = CONCAT(id, '.jpg');
 
 UPDATE gericht SET bildname = '1.jpg' WHERE id = 1;
 UPDATE gericht SET bildname = '3.jpg' WHERE id = 3;
@@ -224,6 +222,8 @@ UPDATE gericht SET bildname = '15.jpg' WHERE id = 15;
 UPDATE gericht SET bildname = '17.jpg' WHERE id = 17;
 UPDATE gericht SET bildname = '19.jpg' WHERE id = 19;
 UPDATE gericht SET bildname = '20.jpg' WHERE id = 20;
+
+
 
 
 
@@ -288,9 +288,33 @@ ALTER TABLE gericht_hat_kategorie
 
 
 
+#Aufgabe 5.4.a
+CREATE VIEW view_suppengerichte AS
+    SELECT * FROM gericht WHERE name LIKE '%suppe%';
+
+#Aufgabe 5.4.b
+CREATE VIEW view_anmeldungen AS
+SELECT id, name, email, anzahlanmeldungen
+FROM benutzer
+ORDER BY anzahlanmeldungen DESC;
+
+#Aufgabe 5.4.c
+CREATE VIEW view_kategoriegerichte_vegetarisch2 AS
+    SELECT kategorie.name AS Kategorie, gericht.name AS Vegetarisches_Gericht
+    FROM kategorie
+        LEFT JOIN gericht_hat_kategorie ghk ON kategorie.id = ghk.kategorie_id
+        LEFT JOIN gericht ON ghk.gericht_id = gericht.id
+WHERE gericht.vegetarisch = TRUE OR gericht.vegetarisch IS NULL;
 
 
 
+CREATE PROCEDURE inkrementiere_anzahlanmeldungen (
+    IN input_id bigint)
+BEGIN
+    UPDATE benutzer
+    SET anzahlanmeldungen = anzahlanmeldungen + 1
+    WHERE benutzer.id = input_id;
+END;
 
 
 
