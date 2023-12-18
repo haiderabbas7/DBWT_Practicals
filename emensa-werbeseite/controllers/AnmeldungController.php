@@ -59,7 +59,7 @@ class AnmeldungController
 
 
     public function abmeldung(){
-        $logger = logger('main');
+        $logger = FrontController::logger('main');
         $logger->info('User ' . $_SESSION['user_name'] . ' hat sich erfolgreich abgemeldet.');
         unset($_SESSION['user_name']);
         $_SESSION['login_ok'] = false;

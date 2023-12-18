@@ -17,7 +17,6 @@
  <?php echo $this->yieldContent('nav'); ?>
  </ul>
  </nav>
- <?php echo $this->yieldContent('anmeldung'); ?>
 </header>
 
 
