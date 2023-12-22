@@ -14,5 +14,7 @@ return array(
 
     '/anmeldung_verifizieren'   => 'AnmeldungController@anmeldung_verifizieren',
 
-    '/abmeldung'                => 'AnmeldungController@abmeldung'
+    '/abmeldung'                => 'AnmeldungController@abmeldung',
+
+    '/profil'                   => 'AnmeldungController@profil'
 );

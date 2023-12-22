@@ -33,6 +33,7 @@ class AnmeldungController
             $_SESSION['login_ok'] = true;
             $_SESSION['user_name'] = db_get_username($email, $password, $link);
             $user_id = db_get_id($email, $password, $link);
+            $_SESSION['user_id'] = $user_id;
             //db_increment_anzahl_anmeldungen($user_id, $link);
             db_increment_anzahl_anmeldungen_procedure($user_id,$link);
 
@@ -62,10 +63,33 @@ class AnmeldungController
         $logger = FrontController::logger('main');
         $logger->info('User ' . $_SESSION['user_name'] . ' hat sich erfolgreich abgemeldet.');
         unset($_SESSION['user_name']);
+        unset($_SESSION['user_id']);
         $_SESSION['login_ok'] = false;
         $_SESSION['login_fehler'] = false;
         header("Location: /");
         exit();
     }
 
+    public function profil(){
+        if(!isset($_SESSION['login_ok']) || $_SESSION['login_ok'] == false){
+            header("Location: /anmeldung");
+        }
+        else{
+            $link = connectdb();
+            mysqli_begin_transaction($link);
+
+            $email = db_get_email($_SESSION['user_id'], $link);
+            $anzahlanmeldungen = db_get_anzahlanmeldungen($_SESSION['user_id'], $link);
+            $admin = db_get_admin($_SESSION['user_id'], $link);
+
+            mysqli_commit($link);
+            mysqli_close($link);
+            return view("profil", [
+                'email' => $email,
+                'anzahlanmeldungen' => $anzahlanmeldungen,
+                'admin' => $admin
+            ]);
+        }
+        exit();
+    }
 }
