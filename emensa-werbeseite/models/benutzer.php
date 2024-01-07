@@ -50,3 +50,31 @@ function db_increment_anzahl_anmeldungen_procedure($id, $link){
     $sql = "CALL inkrementiere_anzahlanmeldungen('$id')";
     mysqli_query($link, $sql);
 }
+
+
+
+function db_get_anzahlanmeldungen($id, $link){
+    $sql = "SELECT anzahlanmeldungen FROM benutzer WHERE id = '$id'";
+    $result = mysqli_query($link, $sql);
+    $int = mysqli_fetch_assoc($result);
+    return $int['anzahlanmeldungen'];
+}
+
+function db_get_email($id, $link){
+    $sql = "SELECT email FROM benutzer WHERE id = '$id'";
+    $result = mysqli_query($link, $sql);
+    $email = mysqli_fetch_assoc($result);
+    return $email['email'];
+}
+
+function db_get_admin($id, $link) : bool{
+    $sql = "SELECT admin FROM benutzer WHERE id = '$id'";
+    $result = mysqli_query($link, $sql);
+    $admin = mysqli_fetch_assoc($result);
+    if($admin['admin'] == '1'){
+        return true;
+    }
+    else{
+        return false;
+    }
+}

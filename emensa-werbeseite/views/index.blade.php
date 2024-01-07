@@ -29,7 +29,7 @@
         @if (!isset($_SESSION['login_ok']) || $_SESSION['login_ok'] == false)
             <a href="/anmeldung">Anmelden</a>
         @elseif (isset($_SESSION['login_ok']) && $_SESSION['login_ok'] == true)
-            <p>Angemeldet als:  <span style="margin-right: 15px">{{ $_SESSION['user_name'] }}</span></p>
+            <p>Angemeldet als:  <span style="margin-right: 15px"><a href="/profil">{{ $_SESSION['user_name'] }}</a></span></p>
             <a href="/abmeldung">Abmelden</a>
         @endif
     </div>
