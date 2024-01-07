@@ -33,7 +33,7 @@
     @if(isset($_SESSION['login_fehler']))
         @if($_SESSION['login_fehler'] == true)
             <p style="color: red; font-size: 18px; font-weight: bold">Bitte überprüfen Sie ihr Email oder Passwort!</p>
-       @endif
+        @endif
     @endif
 @endsection
 

@@ -6,6 +6,7 @@
       <sourceFolder url="file://$MODULE_DIR$/emensa-werbeseite/tests" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/spec" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/emensamobil" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/emensa/vendor/composer" />
       <excludeFolder url="file://$MODULE_DIR$/emensa/vendor/eftec/bladeone" />
       <excludeFolder url="file://$MODULE_DIR$/emensa-werbeseite/vendor/composer" />
