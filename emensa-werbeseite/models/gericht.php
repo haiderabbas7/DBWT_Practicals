@@ -55,7 +55,7 @@ function db_get_bildname($id){
         $result = mysqli_query($link, $sql);
         $data = mysqli_fetch_assoc($result);
         //falls kein bild angegeben ist oder es nicht existiert unter img
-        if($data["bildname"] == NULL || !file_exists("./img/" . $data["bildname"])){
+        if($data["bildname"] == NULL || !file_exists("./img/gerichte/" . $data["bildname"])){
             $data['bildname'] = "00_image_missing.jpg";
         }
     }

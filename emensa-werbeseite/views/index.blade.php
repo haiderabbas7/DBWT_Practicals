@@ -65,7 +65,7 @@
                     </td>
                     <td>{{ $gerichte_sql[$i]['preisintern'] }}€</td>
                     <td>{{ $gerichte_sql[$i]['preisextern'] }}€</td>
-                    <td><img src="./img/{{ $bildernamen[$i]['bildname'] }}" alt="food_img" width="200" height="200"></td>
+                    <td><img src="./img/gerichte/{{ $bildernamen[$i]['bildname'] }}" alt="food_img" width="200" height="200"></td>
                 </tr>
             @endfor
 

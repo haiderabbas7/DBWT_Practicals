@@ -99,6 +99,8 @@ class RequestData
 class FrontController
 {
 
+    //erstellt eine neue Logdatei im logs ordner falls Datei noch nicht existiert
+    //und returned ein Logger objekt, mit dem man in diese Datei reinschreiben kann
     public static function logger($logFileName = 'default_log'): object{
         $logger = new Logger('a');
         $logFilePath = __DIR__ . '/../storage/logs/' . $logFileName . '.log';
