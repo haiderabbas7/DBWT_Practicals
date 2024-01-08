@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\DB;
 
 class kategorie extends Model
 {
-    public static function kategorie_selectAll(){
+    public static function selectAll(){
         $sql = "SELECT * FROM kategorie";
         $result = DB::select($sql);
         return $result ? $result[0]->name : null;

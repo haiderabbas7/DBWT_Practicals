@@ -7,9 +7,9 @@ use Illuminate\Support\Facades\DB;
 
 class gericht_hat_allergen extends Model
 {
-    public static function gericht_hat_allergen_selectUsedAllergen($id){
+    public static function selectUsedAllergen($id){
         $sql = "SELECT * FROM gericht_hat_allergen WHERE gericht_id = ?";
         $result = DB::select($sql, [$id]);
-        return $result ? $result[0]->name : null;
+        return $result ?: null;
     }
 }

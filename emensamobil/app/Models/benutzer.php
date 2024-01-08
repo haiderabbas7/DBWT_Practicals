@@ -7,15 +7,12 @@ use Illuminate\Support\Facades\DB;
 
 class benutzer extends Model
 {
-    //protected $table = 'benutzer'; // Specify the table name if it's different from the model name in plural form
-    //protected $primaryKey = 'id'; // Specify the primary key if it's different from 'id'
-
-    public static function benutzer_getSalt(): string
+    public static function getSalt(): string
     {
         return 'georghoever';
     }
 
-    public static function benutzer_searchForUser($email, $password): bool
+    public static function searchForUser($email, $password): bool
     {
         $sql = "SELECT name FROM benutzer WHERE email = ? AND passwort = ?";
         $result = DB::select($sql, [$email, $password]);
@@ -23,7 +20,7 @@ class benutzer extends Model
         return !empty($result);
     }
 
-    public static function benutzer_getUsername($email, $password)
+    public static function getUsername($email, $password)
     {
         $sql = "SELECT name FROM benutzer WHERE email = ? AND passwort = ?";
         $result = DB::select($sql, [$email, $password]);
@@ -31,7 +28,7 @@ class benutzer extends Model
         return $result ? $result[0]->name : null;
     }
 
-    public static function benutzer_getId($email, $password)
+    public static function getId($email, $password)
     {
         $sql = "SELECT id FROM benutzer WHERE email = ? AND passwort = ?";
         $result = DB::select($sql, [$email, $password]);
@@ -39,29 +36,51 @@ class benutzer extends Model
         return $result ? $result[0]->id : null;
     }
 
-    public static function benutzer_incrementAnzahlAnmeldungen($id)
+    public static function incrementAnzahlAnmeldungen($id)
     {
         $sql = "UPDATE benutzer SET anzahlanmeldungen = anzahlanmeldungen + 1 WHERE id = ?";
         DB::update($sql, [$id]);
     }
 
-    public static function benutzer_setLetzteAnmeldung($id)
+    public static function setLetzteAnmeldung($id)
     {
         $sql = "UPDATE benutzer SET letzteanmeldung = NOW() WHERE id = ?";
         DB::update($sql, [$id]);
     }
 
-    public static function benutzer_setLetzterFehler($email)
+    public static function setLetzterFehler($email)
     {
         $sql = "UPDATE benutzer SET letzterfehler = NOW() WHERE email = ?";
         DB::update($sql, [$email]);
     }
 
-    //VIELLEICHT FEHLER BEI DIESER METHODE
     public static function incrementAnzahlAnmeldungenProcedure($id)
     {
         $sql = "CALL inkrementiere_anzahlanmeldungen(?)";
-        DB::select($sql, [$id]);
+        DB::update($sql, [$id]);
+    }
+
+    public static function getAnzahlanmeldungen($id){
+        $sql = "SELECT anzahlanmeldungen FROM benutzer WHERE id = ?";
+        $result = DB::select($sql, [$id]);
+        return $result ? $result[0]->anzahlanmeldungen : null;
+    }
+
+    public static function getEmail($id){
+        $sql = "SELECT email FROM benutzer WHERE id = ?";
+        $result = DB::select($sql, [$id]);
+        return $result ? $result[0]->email : null;
+    }
+
+    public static function getAdmin($id){
+        $sql = "SELECT admin FROM benutzer WHERE id = ?";
+        $result = DB::select($sql, [$id]);
+        if($result[0]->admin == 1){
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 }
 

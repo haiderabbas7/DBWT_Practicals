@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\WerbeseiteController;
+use App\Http\Controllers\AnmeldungController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +15,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+/*Route::get('/', function () {
     return view('welcome');
-});
+});*/
+
+Route::get('/', [WerbeseiteController::class, 'werbeseite']);
+
+Route::get('/anmeldung', [AnmeldungController::class, 'anmeldung']);
+
+Route::get('/anmeldung_verifizieren', [AnmeldungController::class, 'anmeldung_verifizieren']);
+
+Route::get('/abmeldung', [AnmeldungController::class, 'abmeldung']);
+
+Route::get('/profil', [AnmeldungController::class, 'profil']);

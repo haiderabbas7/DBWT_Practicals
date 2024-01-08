@@ -213,7 +213,7 @@ UPDATE gericht SET bildname = '1.jpg' WHERE id = 1;
 UPDATE gericht SET bildname = '3.jpg' WHERE id = 3;
 UPDATE gericht SET bildname = '4.jpg' WHERE id = 4;
 UPDATE gericht SET bildname = '6.jpg' WHERE id = 6;
-UPDATE gericht SET bildname = '9.jpg' WHERE id = 1;
+UPDATE gericht SET bildname = '9.jpg' WHERE id = 9;
 UPDATE gericht SET bildname = '10.jpg' WHERE id = 10;
 UPDATE gericht SET bildname = '11.jpg' WHERE id = 11;
 UPDATE gericht SET bildname = '12.jpg' WHERE id = 12;

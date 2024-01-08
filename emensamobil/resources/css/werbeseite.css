@@ -1,0 +1,170 @@
+* { /*wird erstmal übergeordnet auf alles angewendet*/
+    margin: 0; /*default-werte für margin und padding ist immer 0, muss daher immer selber gesetzt werden*/
+    padding: 0;
+    box-sizing: border-box; /*padding und border werden bei elementen nach innen berechnet*/
+    font-family: sans-serif;
+}
+body {
+    margin-left: 75px; /*abstand äußerste box bis ende links der website*/
+    margin-right: 75px; /*abstand äußerste box bis ende rechts der website*/
+    margin-top: 10px; /*abstand äußerste box bis ende der website nach oben hin*/
+    border: darkgray 3px solid; /*aussehen äußerster border*/
+    width: auto; /*breite des bodys, auto berechnet sich durch rest aus margin-left/right*/
+    height: fit-content; /*height nutzt den verfügbaren platz, aber nicht mehr als max-content*/
+}
+a { /*steuert navzeile an an und verändert schrift*/
+    font-size: 18px;
+    color: #6BD2CE;
+}
+h1 { /*steuert alle h1 überschriften an*/
+    font-size: 32px;
+    font-weight: bold;
+}
+header { /*steuert menüzeile und bild links daneben an*/
+    display: flex; /*positieren elemente in zeilen oder spalten*/
+    flex-direction: row; /*hier in zeile positionieren*/
+    border-bottom: #D9D9D9 3px solid; /*border nach unten*/
+    margin-top: 50px; /*abstand bis zur oberen border*/
+    padding-bottom: 10px; /*abstand bis zur unteren border*/
+}
+header > img { /*steuert bild oben links im header an*/
+    width: 200px;
+    height: 50px;
+    border: darkgray 3px solid;
+    margin-left: 10px;
+
+}
+nav { /*steuert navigationsleiste an*/
+    margin-left: 10px;
+    padding-top: 10px;
+    border: darkgray 3px solid;
+    width: 1000px; /*width wie main*/
+    height: 50px;
+}
+nav ul { /*anordnung der liste in der navleiste*/
+    display: flex;
+    flex-direction: row;
+    list-style-type: none;
+}
+nav ul li { /*abstand zwischen elementen der navleiste auf auto*/
+    margin-left: auto;
+    margin-right: auto;
+}
+#anmeldung-box {
+    display: flex;
+    align-items: center; /* Center the content vertically */
+    justify-content: center; /* Center the content horizontally */
+    border: darkgray 3px solid;
+    padding: 10px;
+    margin-left: 50px;
+    margin-right: 10px;
+    width: 18.7%;
+}
+
+#anmeldung-box p {
+    margin: 0;
+    text-align: center; /* Center the text inside the box */
+}
+
+#anmeldung-box p span {
+    color: #6BD2CE;
+}
+#anmeldung-form {
+    font-size: 20px; /* Adjust the overall form font size */
+}
+
+#anmeldung-form label {
+    font-size: 100%; /* Adjust label font size */
+}
+
+#anmeldung-form input, #anmeldung-form button {
+    font-size: 120%; /* Adjust input and button font size */
+}
+
+
+main {
+    width: 1000px; /*width wie nav leiste*/
+    height: fit-content;
+    margin-left: 220px;
+    margin-top: 10px;
+}
+main > img {
+    width: inherit; /*übernimmt width vom parent*/
+    height: 400px;
+    border: darkgray 3px solid;
+    margin-bottom: 40px;
+}
+#boxaroundp { /*border um lorem ipsum text*/
+    border: 1px solid black;
+    margin-bottom: 60px;
+}
+#speisen {
+    margin-bottom: 60px;
+}
+table, tr, th, td { /*tabelle zu "Köstlichkeiten, die Sie erwarten"*/
+    width: 1000px; /*breite tabelle wie main*/
+    font-size: 20px;
+    border-collapse: collapse; /*damit nicht doppelt umrandet*/
+    border: 1px solid black;
+    text-align: center;
+    margin-bottom: 20px;
+}
+#abschied { /* "Wir freuen uns auf Ihren Besuch!" zentrieren*/
+    text-align: center;
+}
+#zahltext {
+    display: flex;
+    flex-direction: row; /*anordnung der elemente*/
+    justify-content: space-around; /*gleichverteilung der 3 elemente*/
+    padding-top: 30px; /*abstand von elementen zur überschrift*/
+    margin-bottom: 60px;
+}
+#zahltext p { /*steuert die 3 elemente der zahlen an*/
+    font-size: 20px;
+    font-weight: bold;
+}
+.fieldform {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap; /*sorgt für zeilenumsprung*/
+    border: hidden;
+    margin-top: 15px;
+    margin-bottom: 60px;
+}
+.fieldform div { /*damit zb "Ihr Name:" über der eingabe ist, nicht daneben*/
+    display: flex; /*gilt für die oberen 3 elemente der eingabe*/
+    flex-direction: column;
+}
+.form * { /*abstand zwischen den eingabefeldern*/
+    padding-right: 20px;
+}
+#datenschutzdiv {
+    display: flex;
+    flex-direction: row;
+    margin-top: 15px;
+}
+.wichtig { /*einrückung der unterpunkte bei "Das ist uns wichtig"*/
+    margin-left: 200px;
+}
+#wichtigFürUns { /*abstand von den unterpunkten zu "Wir freuen uns..."*/
+    margin-bottom: 80px;
+}
+footer { /*obere border bei footer*/
+    border-top: #D9D9D9 3px solid;
+}
+footer ul {
+    display: flex;
+    flex-direction: row;
+    list-style-type: none;
+    width: fit-content;
+    margin: 10px auto; /*oben/unten: 10px und links/rechts: auto*/
+}
+footer ul li {
+    margin-right: 10px;
+    padding-right: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+footer ul li:not(li:last-child) { /*alle Listeneinträge bis auf das letzte haben ne border rechts*/
+    border-right: lightgray 2px solid;
+}
