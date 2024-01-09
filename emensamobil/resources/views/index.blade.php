@@ -22,6 +22,7 @@
     <li><a href="#kontakt">Kontakt</a></li>
     <li><a href="#wichtigFürUns">Wichtig für uns</a></li>
     <li><a href="#wunschgericht">Ihr Wunschgericht</a></li>
+    <li><a href="/bewertungen">Bewertungen</a></li>
 @endsection
 
 @section('anmeldung')
@@ -69,10 +70,13 @@
                     <td>{{ $gerichte_sql[$i]->preisintern }}€</td>
                     <td>{{ $gerichte_sql[$i]->preisextern }}€</td>
                     <td>
-                        @if(isset($bildernamen[$i]) && !empty($bildernamen[$i]))
-                            <img src="{{ asset('img/gerichte/' . ($bildernamen[$i][0]->bildname ?: '00_image_missing.jpg')) }}" alt="{{ $bildernamen[$i][0]->bildname }}" width="200" height="200">
-                        @endif
+                        <img src="{{ asset('img/gerichte/' . ($bildernamen[$i][0]->bildname ?: '00_image_missing.jpg')) }}" alt="{{ $bildernamen[$i][0]->bildname }}" width="200" height="200">
                     </td>
+                    @if(isset($_SESSION['login_ok']) && $_SESSION['login_ok'] == true)
+                        <td>
+                            <a href="/bewertung?id={{$gerichte_sql[$i]->id}}">Bewerten Sie dieses Gericht</a>
+                        </td>
+                    @endif
                 </tr>
             @endfor
 

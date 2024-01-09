@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BewertungController;
 use App\Http\Controllers\WerbeseiteController;
 use App\Http\Controllers\AnmeldungController;
 use Illuminate\Support\Facades\Route;
@@ -23,8 +24,14 @@ Route::get('/', [WerbeseiteController::class, 'werbeseite']);
 
 Route::get('/anmeldung', [AnmeldungController::class, 'anmeldung']);
 
-Route::get('/anmeldung_verifizieren', [AnmeldungController::class, 'anmeldung_verifizieren']);
+Route::match(['get', 'post'],'/anmeldung_verifizieren', [AnmeldungController::class, 'anmeldung_verifizieren']);
 
 Route::get('/abmeldung', [AnmeldungController::class, 'abmeldung']);
 
 Route::get('/profil', [AnmeldungController::class, 'profil']);
+
+Route::get('/bewertung', [BewertungController::class, 'bewertung']);
+
+Route::match(['get', 'post'],'/bewertung_verifizieren', [BewertungController::class, 'bewertung_verifizieren']);
+
+Route::get('/bewertungen', [BewertungController::class, 'bewertungen']);

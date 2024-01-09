@@ -13,6 +13,7 @@
 @endsection
 
 @section('nav')
+    <a href="/" style="margin-left: 50px">Zurück zur Hauptseite</a>
 @endsection
 
 @section('main')
@@ -20,7 +21,8 @@
 
     <h1>Bitte anmelden</h1>
 
-    <form id="anmeldung-form" action="/anmeldung_verifizieren" method="get">
+    <form id="anmeldung-form" action="/anmeldung_verifizieren" method="post">
+        @csrf
         <label for="anmeldung_email">Ihre Email:</label><br>
         <input type="email" id="anmeldung_email" name="anmeldung_email" required><br><br>
 

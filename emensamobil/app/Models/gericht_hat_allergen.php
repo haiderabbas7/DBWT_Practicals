@@ -9,7 +9,6 @@ class gericht_hat_allergen extends Model
 {
     public static function selectUsedAllergen($id){
         $sql = "SELECT * FROM gericht_hat_allergen WHERE gericht_id = ?";
-        $result = DB::select($sql, [$id]);
-        return $result ?: null;
+        return DB::select($sql, [$id]);
     }
 }

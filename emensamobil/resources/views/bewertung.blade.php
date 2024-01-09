@@ -1,0 +1,52 @@
+@extends("layouts.layout_werbeseite")
+
+@section('title')
+    Bewertung abgeben
+@endsection
+
+@push('css')
+    <?php include('C:\Users\Haider\PhpstormProjects\E-Mensa-Werbeseite\emensamobil\resources\css\werbeseite.css') ?>
+@endpush
+
+@section('header')
+    <img src="img/georghoever.jpeg" alt="E-Mensa Logo">
+@endsection
+
+@section('nav')
+    <a href="/" style="margin-left: 50px">Zurück zur Hauptseite</a>
+@endsection
+
+@section('main')
+    <img src="img/mensabild.jpg" alt="Banner">
+
+    <h1>Bewertung abgeben zu {{  $gerichtname[0]->name}}</h1>
+    <img src="{{ asset('img/gerichte/' . ($bildname[0]->bildname ?: '00_image_missing.jpg')) }}" alt="{{ $bildname[0]->bildname }}">
+
+    <form id="bewertung-form" action="/bewertung_verifizieren?id={{$id}}" method="post">
+        @csrf
+        <label for="sterne_bewertung">Ihre Sterne-Bewertung:</label>
+        <select id="sterne_bewertung" name="sterne_bewertung" required>
+            <option value="sehr schlecht">Sehr schlecht</option>
+            <option value="schlecht">Schlecht</option>
+            <option value="gut">Gut</option>
+            <option value="sehr gut">Sehr gut</option>
+        </select>
+
+        <label for="bemerkung">Geben Sie nun eine kleine Bemerkung ab (Mindestens 5 Zeichen):</label>
+        <textarea id="bemerkung" name="bemerkung" rows="7" cols="45" required></textarea>
+
+        <button type="submit">Bewertung abschicken</button>
+    </form>
+
+    @if(isset($_SESSION['bewertung_fehler']))
+        @if($_SESSION['bewertung_fehler'] == true)
+            <p style="color: red; font-size: 18px; font-weight: bold">Bitte geben Sie 5 oder mehr Zeichen ein!</p>
+        @endif
+    @endif
+@endsection
+
+@section('footer')
+    <li><p> &copy; E-Mensa GmbH</p></li>
+    <li><p> Haider Abbas und Yannik Sinthern</p></li>
+    <li><a href="#impressum">Impressum</a></li>
+@endsection

@@ -30,17 +30,17 @@ class AnmeldungController extends Controller
             benutzer::incrementAnzahlAnmeldungenProcedure($user_id);
             benutzer::setLetzteAnmeldung($user_id);
 
-            $target = "/";
+            DB::commit();
+            return redirect()->intended();
         }
         else{
             $_SESSION['login_fehler'] = true;
             $_SESSION['login_ok'] = false;
             benutzer::setLetzterFehler($email);
-            $target = "/anmeldung";
+
+            DB::commit();
+            return redirect("/anmeldung");
         }
-        DB::commit();
-        header("Location: " . $target);
-        exit();
     }
 
     public function abmeldung(Request $request){
@@ -54,7 +54,9 @@ class AnmeldungController extends Controller
 
     public function profil(){
         if(!isset($_SESSION['login_ok']) || $_SESSION['login_ok'] == false){
-            header("Location: /anmeldung");
+            //damit man nach dem redirect zurückkommt zu profil
+            session(['url.intended' => '/profil']);
+            return redirect('/anmeldung');
         }
         else{
             DB::beginTransaction();
@@ -69,6 +71,5 @@ class AnmeldungController extends Controller
                 'admin' => $admin
             ]);
         }
-        exit();
     }
 }
