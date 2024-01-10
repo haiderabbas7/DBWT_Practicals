@@ -36,6 +36,11 @@ function db_increment_anzahl_anmeldungen($id, $link){
     mysqli_query($link, $sql);
 }
 
+function db_increment_anzahl_fehler($email, $link){
+    $sql = "UPDATE benutzer SET anzahlfehler = anzahlfehler+ 1 WHERE email = '$email'";
+    mysqli_query($link, $sql);
+}
+
 function db_set_letzteanmeldung($id, $link){
     $sql = "UPDATE benutzer SET letzteanmeldung = NOW() WHERE id = '$id'";
     mysqli_query($link, $sql);

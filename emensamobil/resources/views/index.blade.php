@@ -6,7 +6,7 @@
 
 
 @push('css')
-    <?php include('C:\Users\Haider\PhpstormProjects\E-Mensa-Werbeseite\emensamobil\resources\css\werbeseite.css') ?>
+    <?php include($_SERVER['DOCUMENT_ROOT'] . '\..\resources\css\werbeseite.css') ?>
 @endpush
 
 

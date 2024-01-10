@@ -47,6 +47,7 @@ class AnmeldungController
             $_SESSION['login_fehler'] = true;
             $_SESSION['login_ok'] = false;
             db_set_letzterfehler($email, $link);
+            db_increment_anzahl_fehler($email, $link);
 
             $logger->warning('Fehlgeschlagene Anmeldung mit der Email ' . $email);
 
