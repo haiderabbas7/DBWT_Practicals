@@ -168,3 +168,8 @@ footer ul li {
 footer ul li:not(li:last-child) { /*alle Listeneinträge bis auf das letzte haben ne border rechts*/
     border-right: lightgray 2px solid;
 }
+
+.max-width-paragraph {
+    max-width: 400px;
+    word-wrap: break-word;
+}

@@ -79,4 +79,36 @@ class BewertungController extends Controller
             'bildernamen' => $bildernamen
         ]);
     }
+
+    public function meinebewertungen(){
+        //Fall nicht eingelogged
+        if(!isset($_SESSION['login_ok']) || $_SESSION['login_ok'] == false){
+            //damit man nach dem redirect zurückkommt
+            session(['url.intended' => "/meinebewertungen"]);
+            return redirect('/anmeldung');
+        }
+        else{
+            $bewertungen = bewertung::getOwnBewertungen($_SESSION['user_id']);
+            $gerichtnamen = array();
+            $benutzernamen = array();
+            $bildernamen = array();
+            foreach ($bewertungen as $bewertung){
+                $gerichtnamen[] = gericht::getName($bewertung->zu_gericht_id);
+                $benutzernamen[] = benutzer::getName($bewertung->eingetragen_von_benutzer_id);
+                $bildernamen[] = gericht::getBildname($bewertung->zu_gericht_id);
+            }
+
+            return view('meinebewertungen', [
+                'bewertungen' => $bewertungen,
+                'gerichtnamen' => $gerichtnamen,
+                'benutzernamen' => $benutzernamen,
+                'bildernamen' => $bildernamen
+            ]);
+        }
+    }
+
+    public function bewertung_loeschen(Request $request){
+        bewertung::deleteBewertung($request->query('id'));
+        return redirect('/meinebewertungen?id=' . $_SESSION['user_id']);
+    }
 }

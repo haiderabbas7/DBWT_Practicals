@@ -28,8 +28,8 @@
             <td>
                 <p>Gericht: <b>{{$gerichtnamen[$i][0]->name}}</b></p><br>
                 <p><b>{{$benutzernamen[$i][0]->name}}</b> schrieb am <b>{{$bewertungen[$i]->bewertungszeitpunkt}}</b>:</p>
-                <p>"{{$bewertungen[$i]->bemerkung}}"</p><br>
-                <p>Sterne-Bewertung: {{$bewertungen[$i]->sterne_bewertung}}</p>
+                <p style="max-width: 650px; word-wrap: break-word;">"{{$bewertungen[$i]->bemerkung}}"</p>
+                <p>Sterne-Bewertung: <b>{{$bewertungen[$i]->sterne_bewertung}}</b></p>
             </td>
             <td>
                 <img src="{{ asset('img/gerichte/' . ($bildernamen[$i][0]->bildname ?: '00_image_missing.jpg')) }}" alt="{{ $bildernamen[$i][0]->bildname }}" width="200" height="200">

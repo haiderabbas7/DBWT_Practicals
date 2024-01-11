@@ -35,3 +35,7 @@ Route::get('/bewertung', [BewertungController::class, 'bewertung']);
 Route::match(['get', 'post'],'/bewertung_verifizieren', [BewertungController::class, 'bewertung_verifizieren']);
 
 Route::get('/bewertungen', [BewertungController::class, 'bewertungen']);
+
+Route::get('/meinebewertungen', [BewertungController::class, 'meinebewertungen']);
+
+Route::match(['get','post'], '/bewertung_loeschen', [BewertungController::class, 'bewertung_loeschen']);

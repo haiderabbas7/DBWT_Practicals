@@ -24,4 +24,14 @@ class bewertung extends Model
         $sql = "SELECT * FROM bewertung ORDER BY bewertungszeitpunkt DESC LIMIT 30";
         return DB::select($sql);
     }
+
+    public static function getOwnBewertungen($id){
+        $sql = "SELECT * FROM bewertung WHERE eingetragen_von_benutzer_id = ? ORDER BY bewertungszeitpunkt DESC";
+        return DB::select($sql,[$id]);
+    }
+
+    public static function deleteBewertung($bewertung_id){
+        $sql = "DELETE FROM bewertung WHERE id = ?";
+        DB::delete($sql, [$bewertung_id]);
+    }
 }

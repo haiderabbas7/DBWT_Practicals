@@ -23,6 +23,7 @@
     <li><a href="#wichtigFürUns">Wichtig für uns</a></li>
     <li><a href="#wunschgericht">Ihr Wunschgericht</a></li>
     <li><a href="/bewertungen">Bewertungen</a></li>
+    <li><a href="/meinebewertungen">Ihre Bewertungen</a></li>
 @endsection
 
 @section('anmeldung')
