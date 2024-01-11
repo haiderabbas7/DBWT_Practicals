@@ -39,3 +39,7 @@ Route::get('/bewertungen', [BewertungController::class, 'bewertungen']);
 Route::get('/meinebewertungen', [BewertungController::class, 'meinebewertungen']);
 
 Route::match(['get','post'], '/bewertung_loeschen', [BewertungController::class, 'bewertung_loeschen']);
+
+Route::get('/bewertung_hervorheben', [BewertungController::class, 'bewertung_hervorheben']);
+
+Route::get('/bewertung_hervorhebung_abwaehlen', [BewertungController::class, 'bewertung_hervorhebung_abwaehlen']);

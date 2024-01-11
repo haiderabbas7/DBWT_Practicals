@@ -66,17 +66,20 @@ class BewertungController extends Controller
         $gerichtnamen = array();
         $benutzernamen = array();
         $bildernamen = array();
+        $hervorgehoben = array();
         foreach ($bewertungen as $bewertung){
             $gerichtnamen[] = gericht::getName($bewertung->zu_gericht_id);
             $benutzernamen[] = benutzer::getName($bewertung->eingetragen_von_benutzer_id);
             $bildernamen[] = gericht::getBildname($bewertung->zu_gericht_id);
+            $hervorgehoben[] = bewertung::getHervorhebung($bewertung->id);
         }
 
         return view('bewertungen', [
             'bewertungen' => $bewertungen,
             'gerichtnamen' => $gerichtnamen,
             'benutzernamen' => $benutzernamen,
-            'bildernamen' => $bildernamen
+            'bildernamen' => $bildernamen,
+            'hervorgehoben' => $hervorgehoben
         ]);
     }
 
@@ -110,5 +113,15 @@ class BewertungController extends Controller
     public function bewertung_loeschen(Request $request){
         bewertung::deleteBewertung($request->query('id'));
         return redirect('/meinebewertungen?id=' . $_SESSION['user_id']);
+    }
+
+    public function bewertung_hervorheben(Request $request){
+        bewertung::setBewertungHervorheben($request->query('id'), true);
+        return redirect('/bewertungen');
+    }
+
+    public function bewertung_hervorhebung_abwaehlen(Request $request){
+        bewertung::setBewertungHervorheben($request->query('id'), false);
+        return redirect('/bewertungen');
     }
 }

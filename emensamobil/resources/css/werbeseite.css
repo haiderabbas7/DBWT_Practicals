@@ -102,7 +102,7 @@ main > img {
     margin-bottom: 60px;
 }
 table, tr, th, td { /*tabelle zu "Köstlichkeiten, die Sie erwarten"*/
-    width: 1000px; /*breite tabelle wie main*/
+    width: inherit; /*breite tabelle wie main*/
     font-size: 20px;
     border-collapse: collapse; /*damit nicht doppelt umrandet*/
     border: 1px solid black;
@@ -173,3 +173,58 @@ footer ul li:not(li:last-child) { /*alle Listeneinträge bis auf das letzte habe
     max-width: 400px;
     word-wrap: break-word;
 }
+
+.hervorgehoben {
+    border: 5px solid red;
+    box-shadow: 0 0 30px rgba(255, 0, 0, 0.3);
+}
+
+
+
+
+
+/* Your CSS Styles */
+
+/* Common styles for both small and large screens */
+.bewertungsformular {
+    /* Add your common styles here */
+}
+
+/* Media Query for Small Screens (max-width: 600px) */
+@media screen and (max-width: 600px) {
+    .bewertungsformular {
+        /* Styles for small screens */
+        /* Display labels and input elements stacked vertically */
+        /* Adjust styles as needed for your design */
+        display: block;
+    }
+}
+
+/* Media Query for Larger Screens (min-width: 601px) */
+@media screen and (min-width: 601px) {
+    .bewertungsformular {
+        /* Styles for larger screens */
+        /* Display labels and input elements in a line with line breaks after each pair */
+        /* Use Flexbox or other layout techniques */
+        display: flex;
+        flex-direction: row; /* Display items in a row */
+        align-items: center; /* Align items vertically in the center */
+        flex-wrap: wrap; /* Allow items to wrap to the next line */
+    }
+
+    .bewertungsformular label {
+        /* Style for labels when displayed to the left of input elements */
+        margin-right: 10px; /* Adjust as needed for spacing between label and input */
+    }
+
+    .bewertungsformular label,
+    .bewertungsformular input,
+    .bewertungsformular select,
+    .bewertungsformular textarea{
+        /* Ensure line breaks after each label-input pair */
+        flex: 1; /* Allow items to take equal width */
+        width: 100%; /* Make each pair take the full width */
+    }
+}
+
+

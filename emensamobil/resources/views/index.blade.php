@@ -91,6 +91,26 @@
         </table>
     </section>
 
+    <section id="meinungenUnsererKunden">
+        <h1>Meinungen unserer Gäste:</h1>
+        <table>
+        @for($i = 0; $i < count($hervorgehobene_bewertungen); $i++)
+            <tr>
+                <td>
+                    <p>Gericht: <b>{{$gerichtnamen[$i][0]->name}}</b></p><br>
+                    <p><b>{{$benutzernamen[$i][0]->name}}</b> schrieb am <b>{{$hervorgehobene_bewertungen[$i]->bewertungszeitpunkt}}</b>:</p>
+                    <p style="max-width: 650px; word-wrap: break-word;">"{{$hervorgehobene_bewertungen[$i]->bemerkung}}"</p>
+                    <p>Sterne-Bewertung: <b>{{$hervorgehobene_bewertungen[$i]->sterne_bewertung}}</b></p>
+                </td>
+                <td>
+                    <img src="{{ asset('img/gerichte/' . ($bildernamen_bewertung[$i][0]->bildname ?: '00_image_missing.jpg')) }}" alt="{{ $bildernamen[$i][0]->bildname }}" width="200" height="200">
+                </td>
+            </tr>
+        @endfor
+        </table>
+    </section>
+
+
     <section id="wichtigFürUns">
         <h1>Das ist uns wichtig</h1><br>
         <ul>

@@ -27,6 +27,7 @@ class AnmeldungController extends Controller
             $_SESSION['user_name'] = benutzer::getUsername($email, $passwort);
             $user_id = benutzer::getId($email, $passwort);
             $_SESSION['user_id'] = $user_id;
+            $_SESSION['user_admin'] = benutzer::getAdmin($user_id);
             benutzer::incrementAnzahlAnmeldungenProcedure($user_id);
             benutzer::setLetzteAnmeldung($user_id);
 
