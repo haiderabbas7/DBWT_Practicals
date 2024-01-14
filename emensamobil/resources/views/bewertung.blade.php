@@ -30,7 +30,7 @@
 @section('main')
     <img src="img/mensabild.jpg" alt="Banner">
 
-    <h1>Bewertung abgeben zu {{  $gerichtname[0]->name}}</h1>
+    <h1>Bewertung abgeben zu {{ $gerichtname[0]->name }}</h1>
     <img src="{{ asset('img/gerichte/' . ($bildname[0]->bildname ?: '00_image_missing.jpg')) }}" alt="{{ $bildname[0]->bildname }}">
 
     <form class="bewertungsformular" id="bewertung-form" action="/bewertung_verifizieren?id={{$id}}" method="post">
@@ -41,10 +41,10 @@
             <option value="schlecht">Schlecht</option>
             <option value="gut">Gut</option>
             <option value="sehr gut">Sehr gut</option>
-        </select><br><br>
+        </select>
 
         <label for="bemerkung">Geben Sie nun eine kleine Bemerkung ab (Mindestens 5 Zeichen):</label>
-        <textarea id="bemerkung" name="bemerkung" rows="7" cols="45" required></textarea><br><br>
+        <textarea id="bemerkung" name="bemerkung" rows="7" cols="45" required></textarea>
 
         <button type="submit">Bewertung abschicken</button>
     </form>
