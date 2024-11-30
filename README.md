@@ -5,7 +5,5 @@ In this module, DBWT (Database and Web Technologies), I have made my first real 
 ## Technologies used
 
 - **PHP**: Backend programming language
-- **SQL**: Database management
-- **Sessions and Cookies**: State management
-- **MVC Pattern**: Architectural pattern
+- **MariaDB**: Database management
 - **Laravel**: Web application framework
